@@ -2,6 +2,7 @@ package by.dzmitrey.danilau.foodrecipies.di.components
 
 import android.app.Application
 import by.dzmitrey.danilau.foodrecipies.RecipeListApp
+import by.dzmitrey.danilau.foodrecipies.di.modules.ActivityBuilderModule
 import by.dzmitrey.danilau.foodrecipies.di.modules.NetworkModule
 import by.dzmitrey.danilau.foodrecipies.di.scopes.ApplicationScope
 import dagger.BindsInstance
@@ -13,6 +14,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
+        ActivityBuilderModule::class,
         NetworkModule::class
     ]
 )
