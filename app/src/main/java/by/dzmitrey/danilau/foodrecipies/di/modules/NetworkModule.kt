@@ -1,6 +1,6 @@
 package by.dzmitrey.danilau.foodrecipies.di.modules
 
-import by.dzmitrey.danilau.foodrecipies.RecipeApi
+import by.dzmitrey.danilau.foodrecipies.network.RecipeApi
 import by.dzmitrey.danilau.foodrecipies.di.scopes.ApplicationScope
 import by.dzmitrey.danilau.foodrecipies.util.BASE_URL
 import dagger.Module
