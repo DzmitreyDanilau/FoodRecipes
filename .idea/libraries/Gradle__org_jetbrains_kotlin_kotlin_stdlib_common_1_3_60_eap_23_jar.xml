@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.60-eap-23@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.60-eap-23/b0872399281b1bfcc0315ec345fb037928ec37ce/kotlin-stdlib-common-1.3.60-eap-23.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.60-eap-23/9ed0be27bb45f12573d4fa0865b2f7ee295ac5f7/kotlin-stdlib-common-1.3.60-eap-23-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.60-eap-23/d210e2b45e2e794ec8ebde381d8a65c6e0533a48/kotlin-stdlib-common-1.3.60-eap-23-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
