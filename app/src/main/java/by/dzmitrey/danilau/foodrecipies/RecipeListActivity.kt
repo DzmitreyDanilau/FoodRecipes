@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import by.dzmitrey.danilau.foodrecipies.models.Recipe
 import by.dzmitrey.danilau.foodrecipies.viewmodels.RecipeListViewModel
 import by.dzmitrey.danilau.foodrecipies.viewmodels.ViewModelProviderFactory
+import kotlinx.android.synthetic.main.activity_recipe_list.*
 import javax.inject.Inject
 
 class RecipeListActivity : BaseActivity() {
@@ -18,14 +19,13 @@ class RecipeListActivity : BaseActivity() {
         recipeListViewModel = ViewModelProvider(this, providerFactory)
             .get(RecipeListViewModel::class.java)
         setContentView(R.layout.activity_recipe_list)
-        subscribeObservers()
-    }
-
-    private val viewModelObserver = Observer<List<Recipe>> {
-
-    }
-
-    private fun subscribeObservers() {
-        recipeListViewModel.getRecipes().observe(this, viewModelObserver)
+        recipeListViewModel.searchRecipes("chicken", 1)
+        recipeListViewModel.recipesList.observe(this, Observer<List<Recipe>> {
+            val testList = arrayListOf<Recipe>()
+           it.forEach {
+               testList.add(it)
+           }
+            tv_recipeList.text = testList.toString()
+        })
     }
 }

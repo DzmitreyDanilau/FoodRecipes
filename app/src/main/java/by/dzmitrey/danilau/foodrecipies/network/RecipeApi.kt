@@ -2,6 +2,8 @@ package by.dzmitrey.danilau.foodrecipies.network
 
 import by.dzmitrey.danilau.foodrecipies.network.responses.RecipeResponse
 import by.dzmitrey.danilau.foodrecipies.network.responses.RecipeSerchResponse
+import by.dzmitrey.danilau.foodrecipies.util.API_KEY
+import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -9,15 +11,15 @@ import retrofit2.http.Query
 interface RecipeApi {
     @GET("api/search")
     fun serchRecipe(
-        @Query("key") key: String,
+        @Query("key") key: String = API_KEY,
         @Query("q") query: String,
-        @Query("page") page: String
-    ): Single<RecipeSerchResponse>
+        @Query("page") page:Int
+    ): Observable<RecipeSerchResponse>
 
     @GET("api/get")
-    fun getRecipe(
-        @Query("key") key: String,
+    fun getRecipes(
+        @Query("key") key: String = API_KEY,
         @Query("rId") id: Int
-    ): Single<RecipeResponse>
+    ): Observable<RecipeResponse>
 
 }

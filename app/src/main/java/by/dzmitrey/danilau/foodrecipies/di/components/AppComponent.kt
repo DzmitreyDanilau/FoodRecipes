@@ -4,7 +4,9 @@ import android.app.Application
 import by.dzmitrey.danilau.foodrecipies.RecipeListApp
 import by.dzmitrey.danilau.foodrecipies.di.modules.ActivityBuilderModule
 import by.dzmitrey.danilau.foodrecipies.di.modules.NetworkModule
+import by.dzmitrey.danilau.foodrecipies.di.modules.RecipeViewModelModule
 import by.dzmitrey.danilau.foodrecipies.di.scopes.ApplicationScope
+import by.dzmitrey.danilau.foodrecipies.viewmodels.RecipeListViewModel
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -15,7 +17,8 @@ import dagger.android.support.AndroidSupportInjectionModule
     modules = [
         AndroidSupportInjectionModule::class,
         ActivityBuilderModule::class,
-        NetworkModule::class
+        NetworkModule::class,
+        RecipeViewModelModule::class
     ]
 )
 interface AppComponent : AndroidInjector<RecipeListApp> {

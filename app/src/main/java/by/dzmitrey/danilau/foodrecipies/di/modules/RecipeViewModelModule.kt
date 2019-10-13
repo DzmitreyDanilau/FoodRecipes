@@ -1,4 +1,4 @@
-package by.dzmitrey.danilau.foodrecipies.di.recipelist
+package by.dzmitrey.danilau.foodrecipies.di.modules
 
 import androidx.lifecycle.ViewModel
 import by.dzmitrey.danilau.foodrecipies.di.ViewModelKey
@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class AuthViewModelsModule {
+abstract class RecipeViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(RecipeListViewModel::class)

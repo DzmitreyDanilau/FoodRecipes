@@ -10,6 +10,5 @@ class RecipeSerchResponse(
     private val count: Int,
     @SerializedName("recipes")
     @Expose
-
-    private val recipesList: List<Recipe>?
+    val recipesList: List<Recipe>?
 )
