@@ -20,12 +20,13 @@ class RecipeListActivity : BaseActivity() {
             .get(RecipeListViewModel::class.java)
         setContentView(R.layout.activity_recipe_list)
         recipeListViewModel.searchRecipes("chicken", 1)
-        recipeListViewModel.recipesList.observe(this, Observer<List<Recipe>> {
-            val testList = arrayListOf<Recipe>()
-           it.forEach {
-               testList.add(it)
-           }
-            tv_recipeList.text = testList.toString()
+        recipeListViewModel.getRecipesList().observe(this, Observer<Recipe> { it ->
+
+                tv_recipeList.text = it.title
+
+        })
+        recipeListViewModel.getRecipesListError().observe(this, Observer<String> {
+            tv_recipeList.text = it
         })
     }
 }
