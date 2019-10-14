@@ -11,6 +11,7 @@ import dagger.Provides
 class RecipeListRepositoryModule {
     @RecipeListScope
     @Provides
-    fun provideRecipeListRepository(recipeApi: RecipeApi) = RecipeListRepository(recipeApi)
+    fun provideRecipeListRepository(recipeApi: RecipeApi)
+            = RecipeListRepository(recipeApi)
 
 }

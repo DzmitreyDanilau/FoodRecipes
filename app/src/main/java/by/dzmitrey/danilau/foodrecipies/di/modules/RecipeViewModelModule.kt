@@ -12,5 +12,5 @@ abstract class RecipeViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(RecipeListViewModel::class)
-    abstract fun bindAuthViewModel(authViewModel: RecipeListViewModel): ViewModel
+    abstract fun bindRecipeViewModel(authViewModel: RecipeListViewModel): ViewModel
 }

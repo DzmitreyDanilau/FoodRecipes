@@ -6,6 +6,10 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityBuilderModule {
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(
+        modules = [
+            RecipeViewModelModule::class
+        ]
+    )
     abstract fun contributeRecipeListActivity(): RecipeListActivity
 }
