@@ -8,6 +8,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class RecipeListRepository @Inject constructor(private val recipeApi: RecipeApi) {
+
     fun searchRecipes(query: String, page: Int) =
         recipeApi.serchRecipe(API_KEY2, query, page)
             .flatMap {
