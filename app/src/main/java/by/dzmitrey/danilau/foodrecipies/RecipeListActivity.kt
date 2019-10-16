@@ -7,6 +7,7 @@ import by.dzmitrey.danilau.foodrecipies.models.Recipe
 import by.dzmitrey.danilau.foodrecipies.viewmodels.RecipeListViewModel
 import by.dzmitrey.danilau.foodrecipies.viewmodels.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_recipe_list.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class RecipeListActivity : BaseActivity() {
@@ -20,10 +21,13 @@ class RecipeListActivity : BaseActivity() {
             .get(RecipeListViewModel::class.java)
         setContentView(R.layout.activity_recipe_list)
         recipeListViewModel.searchRecipes("chicken", 1)
-        recipeListViewModel.getRecipesList().observe(this, Observer<Recipe> { it ->
-
-                tv_recipeList.text = it.title
-
+        recipeListViewModel.getRecipesList().observe(this, Observer<List<Recipe>> { it ->
+            var test:String? = null
+            it.forEach {
+                test += it.title
+                Timber.d("Inside foreach $test")
+            }
+            tv_recipeList.text = test
         })
         recipeListViewModel.getRecipesListError().observe(this, Observer<String> {
             tv_recipeList.text = it

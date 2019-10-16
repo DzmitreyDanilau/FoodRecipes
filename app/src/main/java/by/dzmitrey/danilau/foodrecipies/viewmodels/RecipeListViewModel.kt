@@ -13,18 +13,13 @@ import javax.inject.Inject
 
 class RecipeListViewModel @Inject constructor(private val repository: RecipeListRepository) :
     ViewModel() {
-    private val recipesList: MutableLiveData<Recipe> = MutableLiveData()
+    private val recipesList: MutableLiveData<List<Recipe>> = MutableLiveData()
     private val recipesListError: MutableLiveData<String> = MutableLiveData()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun searchRecipes(query: String, page: Int) {
         compositeDisposable.add(
             repository.searchRecipes(query, page)
-                .map {
-                    Timber.d("${it[0]}")
-                    it[0]
-
-                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -37,6 +32,6 @@ class RecipeListViewModel @Inject constructor(private val repository: RecipeList
         )
     }
 
-    fun getRecipesList(): LiveData<Recipe> = recipesList
+    fun getRecipesList(): LiveData<List<Recipe>> = recipesList
     fun getRecipesListError(): LiveData<String> = recipesListError
 }

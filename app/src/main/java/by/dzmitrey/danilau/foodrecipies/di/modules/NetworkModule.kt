@@ -2,7 +2,6 @@ package by.dzmitrey.danilau.foodrecipies.di.modules
 
 import by.dzmitrey.danilau.foodrecipies.network.RecipeApi
 import by.dzmitrey.danilau.foodrecipies.di.scopes.ApplicationScope
-import by.dzmitrey.danilau.foodrecipies.util.BASE_URL
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -16,20 +15,10 @@ import timber.log.Timber
 class NetworkModule {
     @ApplicationScope
     @Provides
-    fun provideService(retrofit: Retrofit): RecipeApi {
-        return retrofit.create(RecipeApi::class.java)
+    fun provideService(client: OkHttpClient): RecipeApi {
+        return RecipeApi.get(client)
     }
 
-    @ApplicationScope
-    @Provides
-    fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .client(okHttpClient)
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-    }
 
     @ApplicationScope
     @Provides
