@@ -3,8 +3,7 @@ package by.dzmitrey.danilau.foodrecipies.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import by.dzmitrey.danilau.foodrecipies.models.modelsbackend.Recipe
-import by.dzmitrey.danilau.foodrecipies.models.modelsbackend.RecipeMoshi
+import by.dzmitrey.danilau.foodrecipies.models.backend.RecipeMoshi
 import by.dzmitrey.danilau.foodrecipies.repositories.RecipeListRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

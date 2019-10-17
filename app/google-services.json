@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "263091566650",
+    "firebase_url": "https://foodrecipies-ab7b6.firebaseio.com",
+    "project_id": "foodrecipies-ab7b6",
+    "storage_bucket": "foodrecipies-ab7b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263091566650:android:5afcd68ae717b6779a9d03",
+        "android_client_info": {
+          "package_name": "by.dzmitrey.danilau.foodrecipies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263091566650-isva30gci0vapq4m4gmejvpmrh30gsku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9jLzfe1ilNFCyfUrK_svTCnzgoVRzzyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263091566650-isva30gci0vapq4m4gmejvpmrh30gsku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

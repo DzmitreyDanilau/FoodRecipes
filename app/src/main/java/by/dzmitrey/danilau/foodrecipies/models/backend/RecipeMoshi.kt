@@ -1,4 +1,4 @@
-package by.dzmitrey.danilau.foodrecipies.models.modelsbackend
+package by.dzmitrey.danilau.foodrecipies.models.backend
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

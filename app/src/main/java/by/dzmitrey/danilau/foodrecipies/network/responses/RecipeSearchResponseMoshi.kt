@@ -1,7 +1,7 @@
 package by.dzmitrey.danilau.foodrecipies.network.responses
 
 
-import by.dzmitrey.danilau.foodrecipies.models.modelsbackend.RecipeMoshi
+import by.dzmitrey.danilau.foodrecipies.models.backend.RecipeMoshi
 import com.squareup.moshi.Json
 
 class RecipeSearchResponseMoshi(
