@@ -3,12 +3,11 @@ package by.dzmitrey.danilau.foodrecipies.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import by.dzmitrey.danilau.foodrecipies.models.Recipe
+import by.dzmitrey.danilau.foodrecipies.models.modelsbackend.Recipe
 import by.dzmitrey.danilau.foodrecipies.repositories.RecipeListRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import javax.inject.Inject
 
 class RecipeListViewModel @Inject constructor(private val repository: RecipeListRepository) :

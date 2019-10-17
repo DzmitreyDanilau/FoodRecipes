@@ -15,10 +15,9 @@ import timber.log.Timber
 class NetworkModule {
     @ApplicationScope
     @Provides
-    fun provideService(client: OkHttpClient): RecipeApi {
-        return RecipeApi.get(client)
+    fun provideService(retrofit: Retrofit): RecipeApi {
+        return RecipeApi.get(retrofit)
     }
-
 
     @ApplicationScope
     @Provides
@@ -27,5 +26,16 @@ class NetworkModule {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         Timber.d("OkHttpClient created")
         return OkHttpClient.Builder().addInterceptor(interceptor).build()
+    }
+
+    @ApplicationScope
+    @Provides
+    fun provideRetrofit(client: OkHttpClient): Retrofit {
+        return Retrofit
+            .Builder()
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 }

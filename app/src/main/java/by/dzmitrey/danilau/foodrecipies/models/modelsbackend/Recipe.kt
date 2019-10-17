@@ -1,4 +1,4 @@
-package by.dzmitrey.danilau.foodrecipies.models
+package by.dzmitrey.danilau.foodrecipies.models.modelsbackend
 
 import com.google.gson.annotations.SerializedName
 

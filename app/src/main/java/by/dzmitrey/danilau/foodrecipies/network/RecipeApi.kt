@@ -13,7 +13,7 @@ import retrofit2.http.Query
 
 interface RecipeApi {
     @GET("api/search")
-    fun serchRecipe(
+    fun searchRecipes(
         @Query("key") key: String = by.dzmitrey.danilau.foodrecipies.util.API_KEY2,
         @Query("q") query: String,
         @Query("page") page: Int
@@ -26,14 +26,8 @@ interface RecipeApi {
     ): Observable<RecipeResponse>
 
     companion object {
-        fun get (okHttpClient: OkHttpClient): RecipeApi {
-            return Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(by.dzmitrey.danilau.foodrecipies.util.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
-                .create(RecipeApi::class.java)
+        fun get(retrofit: Retrofit): RecipeApi {
+            return retrofit.create(RecipeApi::class.java)
         }
     }
 }

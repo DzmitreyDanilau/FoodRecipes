@@ -3,7 +3,7 @@ package by.dzmitrey.danilau.foodrecipies
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import by.dzmitrey.danilau.foodrecipies.models.Recipe
+import by.dzmitrey.danilau.foodrecipies.models.modelsbackend.Recipe
 import by.dzmitrey.danilau.foodrecipies.viewmodels.RecipeListViewModel
 import by.dzmitrey.danilau.foodrecipies.viewmodels.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_recipe_list.*

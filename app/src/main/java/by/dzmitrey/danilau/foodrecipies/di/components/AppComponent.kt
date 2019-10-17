@@ -3,6 +3,7 @@ package by.dzmitrey.danilau.foodrecipies.di.components
 import android.app.Application
 import by.dzmitrey.danilau.foodrecipies.RecipeListApp
 import by.dzmitrey.danilau.foodrecipies.di.modules.ActivityBuilderModule
+import by.dzmitrey.danilau.foodrecipies.di.modules.AppModule
 import by.dzmitrey.danilau.foodrecipies.di.modules.NetworkModule
 import by.dzmitrey.danilau.foodrecipies.di.modules.RecipeViewModelModule
 import by.dzmitrey.danilau.foodrecipies.di.scopes.ApplicationScope
@@ -16,6 +17,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
+        AppModule::class,
         ActivityBuilderModule::class,
         NetworkModule::class,
         RecipeViewModelModule::class
