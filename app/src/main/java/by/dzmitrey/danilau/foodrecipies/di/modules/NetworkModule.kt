@@ -1,14 +1,14 @@
 package by.dzmitrey.danilau.foodrecipies.di.modules
 
-import by.dzmitrey.danilau.foodrecipies.network.RecipeApi
 import by.dzmitrey.danilau.foodrecipies.di.scopes.ApplicationScope
+import by.dzmitrey.danilau.foodrecipies.network.RecipeApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import timber.log.Timber
 
 @Module
@@ -33,9 +33,10 @@ class NetworkModule {
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit
             .Builder()
+            .baseUrl(by.dzmitrey.danilau.foodrecipies.util.BASE_URL)
             .client(client)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }
 }
