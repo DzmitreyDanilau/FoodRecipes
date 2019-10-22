@@ -1,4 +1,4 @@
-package by.dzmitrey.danilau.foodrecipies
+package by.dzmitrey.danilau.foodrecipies.ui.fragments
 
 import android.content.Context
 import android.net.Uri
@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.dzmitrey.danilau.foodrecipies.R
 import dagger.android.support.DaggerFragment
 
 // TODO: Rename parameter arguments, choose names that match

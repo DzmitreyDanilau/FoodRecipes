@@ -6,6 +6,7 @@ import by.dzmitrey.danilau.foodrecipies.di.modules.ActivityBuilderModule
 import by.dzmitrey.danilau.foodrecipies.di.modules.AppModule
 import by.dzmitrey.danilau.foodrecipies.di.modules.NetworkModule
 import by.dzmitrey.danilau.foodrecipies.di.modules.RecipeViewModelModule
+import by.dzmitrey.danilau.foodrecipies.di.recipelist.RecipeListRepositoryModule
 import by.dzmitrey.danilau.foodrecipies.di.scopes.ApplicationScope
 import by.dzmitrey.danilau.foodrecipies.viewmodels.RecipeListViewModel
 import dagger.BindsInstance

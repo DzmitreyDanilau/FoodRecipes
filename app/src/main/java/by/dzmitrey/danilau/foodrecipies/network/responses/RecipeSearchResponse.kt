@@ -1,14 +1,11 @@
 package by.dzmitrey.danilau.foodrecipies.network.responses
 
-import by.dzmitrey.danilau.foodrecipies.models.backend.RecipeMoshi
-import com.google.gson.annotations.Expose
+import by.dzmitrey.danilau.foodrecipies.models.backend.RecipeApi
 import com.google.gson.annotations.SerializedName
 
 class RecipeSearchResponse(
     @SerializedName("count")
-    @Expose
     private val count: Int,
     @SerializedName("recipes")
-    @Expose
-    val recipesList: List<RecipeMoshi>?
+    val recipesList: List<RecipeApi>?
 )

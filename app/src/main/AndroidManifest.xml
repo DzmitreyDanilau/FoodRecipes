@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".RecipeListActivity">
+        <activity android:name=".ui.activities.RecipeListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".firebase.NotificationService">
+        <service android:name="by.dzmitrey.danilau.foodrecipies.services.firebase.NotificationService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

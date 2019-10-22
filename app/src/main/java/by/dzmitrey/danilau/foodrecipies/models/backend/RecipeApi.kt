@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class RecipeMoshi(
+data class RecipeApi(
     @Json(name = "publisher")
     val publisher: String?,
     @Json(name = "title")

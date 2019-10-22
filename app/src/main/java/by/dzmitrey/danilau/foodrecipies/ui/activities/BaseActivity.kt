@@ -1,7 +1,8 @@
-package by.dzmitrey.danilau.foodrecipies
+package by.dzmitrey.danilau.foodrecipies.ui.activities
 
 import android.view.View
 import android.widget.ProgressBar
+import by.dzmitrey.danilau.foodrecipies.R
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_base.view.*
 
