@@ -6,7 +6,7 @@ import io.reactivex.Single
 
 interface IInteractor {
     interface RecipeListInteractor {
-        fun fetchDataFromApi(): Single<List<Recipe>>
+        fun fetchDataFromApi(query:String, page:Int): Single<List<Recipe>>
         fun fetchDataFromDB(): Single<List<RecipeLocal>>
         fun saveDataToDB(recipeList: List<RecipeLocal>)
     }

@@ -9,8 +9,8 @@ interface IRecipeRepository {
         fun searchRecipesByApi(query: String, page: Int): Single<List<Recipe>>
     }
 
-    interface DatabaseSource {
-        fun searchRecipiesByDB(query: String): Single<List<RecipeLocal>>
+    interface LocalDataSource {
+        fun searchRecipesByDB(query: String): Single<List<RecipeLocal>>
     }
 
 }
