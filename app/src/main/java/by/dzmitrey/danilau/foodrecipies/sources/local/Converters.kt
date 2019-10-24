@@ -3,8 +3,8 @@ package by.dzmitrey.danilau.foodrecipies.sources.local
 import androidx.room.TypeConverter
 
 class Converters {
-    companion object {
 
+    companion object {
         @TypeConverter
         @JvmStatic
         fun toString(ingredientsList: List<String?>) =

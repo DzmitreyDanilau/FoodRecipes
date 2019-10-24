@@ -9,14 +9,10 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class RecipeListRepositoriesModule {
+class NetworkRecipeListRepositoryModule {
     @Provides
     fun provideNetworkRecipeListRepository(recipeApi: RecipeApi): IRecipeRepository.NetworkDataSource {
         return RecipeListNetworkDataSource(recipeApi)
     }
 
-    @Provides
-    fun provideLocalRecipeListRepository(recipeDao: RecipeDao): IRecipeRepository.LocalDataSource {
-        return RecipeListLocalDataSource(recipeDao)
-    }
 }

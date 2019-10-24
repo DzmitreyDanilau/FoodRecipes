@@ -12,11 +12,7 @@ class RecipeListInteractorImpl @Inject constructor(
 ) : IInteractor.RecipeListInteractor {
 
     override fun fetchDataFromApi(query: String, page: Int): Single<List<Recipe>> {
-        networkDataSource.searchRecipesByApi(query, page)
-            .flatMap { it.map {
-                val localRecipe = RecipeLocal()
-            } }
-
+        return SingleList<>
     }
 
     override fun fetchDataFromDB(): Single<List<RecipeLocal>> {

@@ -2,7 +2,7 @@ package by.dzmitrey.danilau.foodrecipies.di.modules
 
 import by.dzmitrey.danilau.foodrecipies.di.recipelist.RecipeListInteractorsModule
 import by.dzmitrey.danilau.foodrecipies.di.recipelist.RecipeListNetworkModule
-import by.dzmitrey.danilau.foodrecipies.di.recipelist.RecipeListRepositoriesModule
+import by.dzmitrey.danilau.foodrecipies.di.recipelist.NetworkRecipeListRepositoryModule
 import by.dzmitrey.danilau.foodrecipies.di.scopes.RecipeListScope
 import by.dzmitrey.danilau.foodrecipies.ui.activities.RecipeListActivity
 import dagger.Module
@@ -14,7 +14,7 @@ abstract class ActivityBuilderModule {
     @ContributesAndroidInjector(
         modules = [
             RecipeViewModelModule::class,
-            RecipeListRepositoriesModule::class,
+            NetworkRecipeListRepositoryModule::class,
             RecipeListNetworkModule::class,
             RecipeListInteractorsModule::class
         ]

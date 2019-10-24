@@ -2,10 +2,7 @@ package by.dzmitrey.danilau.foodrecipies.di.components
 
 import android.app.Application
 import by.dzmitrey.danilau.foodrecipies.RecipeListApp
-import by.dzmitrey.danilau.foodrecipies.di.modules.ActivityBuilderModule
-import by.dzmitrey.danilau.foodrecipies.di.modules.AppModule
-import by.dzmitrey.danilau.foodrecipies.di.modules.NetworkModule
-import by.dzmitrey.danilau.foodrecipies.di.modules.RecipeViewModelModule
+import by.dzmitrey.danilau.foodrecipies.di.modules.*
 import by.dzmitrey.danilau.foodrecipies.di.scopes.ApplicationScope
 import dagger.BindsInstance
 import dagger.Component
@@ -19,7 +16,8 @@ import dagger.android.support.AndroidSupportInjectionModule
         AppModule::class,
         ActivityBuilderModule::class,
         NetworkModule::class,
-        RecipeViewModelModule::class
+        RecipeViewModelModule::class,
+        RoomModule::class
     ]
 )
 interface AppComponent : AndroidInjector<RecipeListApp> {

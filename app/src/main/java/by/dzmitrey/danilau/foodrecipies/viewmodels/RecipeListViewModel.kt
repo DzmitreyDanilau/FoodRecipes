@@ -11,7 +11,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class RecipeListViewModel @Inject constructor(private val recipeListInteractor: IInteractor.RecipeListInteractor) :
+class RecipeListViewModel @Inject constructor(
+    private val recipeListInteractor: IInteractor.RecipeListInteractor) :
     ViewModel() {
     private val recipesList: MutableLiveData<List<RecipeLocal>> = MutableLiveData()
     private val recipesListError: MutableLiveData<String> = MutableLiveData()
