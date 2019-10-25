@@ -16,7 +16,7 @@ data class RecipeLocal(
     @ColumnInfo(name = "title")
     val title: String?,
     @ColumnInfo(name = "ingredients")
-    val ingredients: ArrayList<String?>,
+    val ingredients: List<String?>,
     @ColumnInfo(name = "id")
     val id: String?,
     @ColumnInfo(name = "imageUrl")

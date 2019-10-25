@@ -12,12 +12,14 @@ class RecipeListInteractorImpl @Inject constructor(
 ) : IInteractor.RecipeListInteractor {
 
     override fun fetchDataFromApi(query: String, page: Int): Single<List<Recipe>> {
-        return SingleList<>
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun fetchDataFromDB(): Single<List<RecipeLocal>> {
 //        localDataSource.searchRecipesByDB()
-        //TODO
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun saveDataToDB(recipeList: List<RecipeLocal>) {

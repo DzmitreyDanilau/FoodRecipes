@@ -1,6 +1,5 @@
 package by.dzmitrey.danilau.foodrecipies.ui.activities
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,8 +10,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.Result
-import com.google.android.gms.common.api.ResultCallback
 import kotlinx.android.synthetic.main.activity_login.*
 import timber.log.Timber
 
@@ -35,6 +32,7 @@ class LoginActivity : BaseActivity(), GoogleApiClient.ConnectionCallbacks,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        signInButton = btn_sign_in
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
@@ -47,18 +45,17 @@ class LoginActivity : BaseActivity(), GoogleApiClient.ConnectionCallbacks,
             signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient)
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
-        signOutButton.setOnClickListener {
-            Auth.GoogleSignInApi.signOut(googleApiClient)
-            ResultCallback<Result> {
-                updateUI(false)
-            }
-        }
+//        signOutButton.setOnClickListener {
+//            Auth.GoogleSignInApi.signOut(googleApiClient)
+//            ResultCallback<Result> {
+//            }
+//        }
     }
 
     override fun onStart() {
         super.onStart()
         googleApiClient.connect()
-        val opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        val opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient)
         if (opr.isDone) {
             Timber.d("Got cached sign-in")
             val result = opr.get()
@@ -73,7 +70,7 @@ class LoginActivity : BaseActivity(), GoogleApiClient.ConnectionCallbacks,
 
         override fun onConnected(p0: Bundle?) {
             btn_sign_in.isEnabled = true
-            btn_login.isEnabled = false
+//            btn_login.isEnabled = false
             signInProgress = SIGNED_IN
 
         }
@@ -90,26 +87,25 @@ class LoginActivity : BaseActivity(), GoogleApiClient.ConnectionCallbacks,
             Timber.d("$result")
             result?.let {
                 if (it.isSuccess) {
-                    // Signed in successfolly, show authenticated UI.
+                    // Signed in successflly, show authenticated UI.
                     val googleSignInAcc = result.signInAccount
                     val googleSingInId = googleSignInAcc?.id
-                    Timber.d("$googleSingInId")
+                    Timber.d("Id: $googleSingInId")
                     val googleSingInName = googleSignInAcc?.givenName
-                    Timber.d("$googleSingInName")
+                    Timber.d("Name: $googleSingInName")
                     val googleSingInIdToken = googleSignInAcc?.idToken
-                    Timber.d("$googleSingInIdToken")
+                    Timber.d("Token: $googleSingInIdToken")
 
                     //mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
                     //Similarly you can get the email and photourl using acct.getEmail() and  acct.getPhotoUrl()
                     if (googleSignInAcc?.photoUrl != null)
+                        Timber.d("${googleSignInAcc.photoUrl}")
                         Glide.with(iv_logo.context)
-                            .load(googleSignInAcc.photoUrl.toString())
+                            .load(googleSignInAcc?.photoUrl.toString())
                             .skipMemoryCache(true)
                             .into(iv_logo)
-                    updateUI(true)
                 } else {
                     // Signed out, show unauthenticated UI.
-                    updateUI(false);
                 }
             }
         }
@@ -120,17 +116,7 @@ class LoginActivity : BaseActivity(), GoogleApiClient.ConnectionCallbacks,
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    private fun updateUI(signedIn: Boolean) {
-        if (signedIn) {
-            signInButton.visibility = View.GONE
-            signOutButton.visibility = View.VISIBLE
-        } else {
-            signInButton.visibility = View.VISIBLE
-            signOutButton.visibility = View.GONE
-        }
+        Timber.d("Connection failed method")
     }
 
 

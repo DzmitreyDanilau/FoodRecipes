@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import by.dzmitrey.danilau.foodrecipies.R
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
+import by.dzmitrey.danilau.foodrecipies.models.backend.Recipe
 import by.dzmitrey.danilau.foodrecipies.models.backend.RecipeApi
 import by.dzmitrey.danilau.foodrecipies.viewmodels.RecipeListViewModel
 import by.dzmitrey.danilau.foodrecipies.viewmodels.ViewModelProviderFactory
@@ -24,7 +25,7 @@ class RecipeListActivity : BaseActivity() {
         setContentView(R.layout.activity_recipe_list)
         Timber.d("ProviderFactory Entity: $providerFactory")
         recipeListViewModel.searchRecipes("chicken", 1)
-        recipeListViewModel.getRecipesList().observe(this, Observer<List<RecipeLocal>> { it ->
+        recipeListViewModel.getRecipesList().observe(this, Observer<List<Recipe>> { it ->
             var test: String? = null
             it.forEach {
                 test += it.title
