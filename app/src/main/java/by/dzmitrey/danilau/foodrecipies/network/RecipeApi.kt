@@ -4,6 +4,7 @@ import by.dzmitrey.danilau.foodrecipies.network.responses.RecipeResponse
 import by.dzmitrey.danilau.foodrecipies.network.responses.RecipeSearchResponse
 import by.dzmitrey.danilau.foodrecipies.util.API_KEY
 import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,7 +15,7 @@ interface RecipeApi {
         @Query("key") key: String = by.dzmitrey.danilau.foodrecipies.util.API_KEY2,
         @Query("q") query: String,
         @Query("page") page: Int
-    ): Observable<RecipeSearchResponse>
+    ): Single<RecipeSearchResponse>
 
     @GET("api/get")
     fun getRecipes(

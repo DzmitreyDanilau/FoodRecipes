@@ -33,6 +33,4 @@ class RoomModule {
         Timber.d("RecipeDao initialized")
         return demoDatabase.getRecipeDao()
     }
-
-
 }

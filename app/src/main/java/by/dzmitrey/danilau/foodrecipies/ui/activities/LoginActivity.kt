@@ -26,7 +26,6 @@ class LoginActivity : BaseActivity(), GoogleApiClient.ConnectionCallbacks,
     private lateinit var gso: GoogleSignInOptions
     private lateinit var signInIntent: Intent
     private lateinit var signInButton: View
-    private lateinit var signOutButton: View
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,15 +40,14 @@ class LoginActivity : BaseActivity(), GoogleApiClient.ConnectionCallbacks,
             .addOnConnectionFailedListener(this)
             .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
             .build()
+        btn_login.setOnClickListener {
+            val intent = Intent(this, RecipeListActivity::class.java)
+            startActivity(intent)
+        }
         signInButton.setOnClickListener {
             signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient)
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
-//        signOutButton.setOnClickListener {
-//            Auth.GoogleSignInApi.signOut(googleApiClient)
-//            ResultCallback<Result> {
-//            }
-//        }
     }
 
     override fun onStart() {
@@ -63,52 +61,52 @@ class LoginActivity : BaseActivity(), GoogleApiClient.ConnectionCallbacks,
         }
     }
 
-        override fun onStop() {
-            super.onStop()
-            googleApiClient.disconnect()
-        }
+    override fun onStop() {
+        super.onStop()
+        googleApiClient.disconnect()
+    }
 
-        override fun onConnected(p0: Bundle?) {
-            btn_sign_in.isEnabled = true
+    override fun onConnected(p0: Bundle?) {
+        btn_sign_in.isEnabled = true
 //            btn_login.isEnabled = false
-            signInProgress = SIGNED_IN
+        signInProgress = SIGNED_IN
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+            handleSignInResult(result)
         }
+    }
 
-        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-            if (requestCode == RC_SIGN_IN) {
-                val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
-                handleSignInResult(result)
+    private fun handleSignInResult(result: GoogleSignInResult?) {
+        Timber.d("$result")
+        result?.let {
+            if (it.isSuccess) {
+                // Signed in successflly, show authenticated UI.
+                val googleSignInAcc = result.signInAccount
+                val googleSingInId = googleSignInAcc?.id
+                Timber.d("Id: $googleSingInId")
+                val googleSingInName = googleSignInAcc?.givenName
+                Timber.d("Name: $googleSingInName")
+                val googleSingInIdToken = googleSignInAcc?.idToken
+                Timber.d("Token: $googleSingInIdToken")
+
+                //mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+                //Similarly you can get the email and photourl using acct.getEmail() and  acct.getPhotoUrl()
+                if (googleSignInAcc?.photoUrl != null)
+                    Timber.d("${googleSignInAcc.photoUrl}")
+                Glide.with(iv_logo.context)
+                    .load(googleSignInAcc?.photoUrl.toString())
+                    .skipMemoryCache(true)
+                    .into(iv_logo)
+            } else {
+                // Signed out, show unauthenticated UI.
             }
         }
-
-        private fun handleSignInResult(result: GoogleSignInResult?) {
-            Timber.d("$result")
-            result?.let {
-                if (it.isSuccess) {
-                    // Signed in successflly, show authenticated UI.
-                    val googleSignInAcc = result.signInAccount
-                    val googleSingInId = googleSignInAcc?.id
-                    Timber.d("Id: $googleSingInId")
-                    val googleSingInName = googleSignInAcc?.givenName
-                    Timber.d("Name: $googleSingInName")
-                    val googleSingInIdToken = googleSignInAcc?.idToken
-                    Timber.d("Token: $googleSingInIdToken")
-
-                    //mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-                    //Similarly you can get the email and photourl using acct.getEmail() and  acct.getPhotoUrl()
-                    if (googleSignInAcc?.photoUrl != null)
-                        Timber.d("${googleSignInAcc.photoUrl}")
-                        Glide.with(iv_logo.context)
-                            .load(googleSignInAcc?.photoUrl.toString())
-                            .skipMemoryCache(true)
-                            .into(iv_logo)
-                } else {
-                    // Signed out, show unauthenticated UI.
-                }
-            }
-        }
+    }
 
 
     override fun onConnectionSuspended(p0: Int) {
@@ -118,6 +116,4 @@ class LoginActivity : BaseActivity(), GoogleApiClient.ConnectionCallbacks,
     override fun onConnectionFailed(p0: ConnectionResult) {
         Timber.d("Connection failed method")
     }
-
-
 }
