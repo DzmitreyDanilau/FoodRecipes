@@ -2,14 +2,8 @@ package by.dzmitrey.danilau.foodrecipies.interactors
 
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
 import by.dzmitrey.danilau.foodrecipies.models.backend.Recipe
-import by.dzmitrey.danilau.foodrecipies.network.responses.RecipeSearchResponse
 import by.dzmitrey.danilau.foodrecipies.repositories.IRecipeRepository
-import io.reactivex.Observable
-import io.reactivex.ObservableSource
 import io.reactivex.Single
-import io.reactivex.SingleSource
-import io.reactivex.functions.Function
-import io.reactivex.internal.operators.single.SingleToObservable
 import timber.log.Timber
 import javax.inject.Inject
 

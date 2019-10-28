@@ -4,13 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.dzmitrey.danilau.foodrecipies.interactors.IInteractor
-import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
 import by.dzmitrey.danilau.foodrecipies.models.backend.Recipe
-import by.dzmitrey.danilau.foodrecipies.repositories.IRecipeRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import javax.inject.Inject
 
 class RecipeListViewModel @Inject constructor(
