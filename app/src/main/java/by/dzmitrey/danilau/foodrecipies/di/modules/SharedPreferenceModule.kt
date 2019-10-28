@@ -9,8 +9,8 @@ import dagger.Provides
 
 @Module
 class SharedPreferenceModule {
-    @Provides
     @ApplicationScope
+    @Provides
     fun provideSharedPreference(application: Application): ILocalStorage.SharedPreferencesStorage {
         return SharedPreferenceStorage(application)
     }

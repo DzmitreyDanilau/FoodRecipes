@@ -26,9 +26,6 @@ class RecipeListViewModel @Inject constructor(
             recipeListInteractor.fetchDataFromApi(query, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess {
-                    Timber.d("Result from fun searchRecipes(): $it")
-                }
                 .subscribe(
                     {
                         recipesList.postValue(it)

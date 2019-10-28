@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,20 +32,27 @@ class RecipeListActivity : BaseActivity(), OnRecipeListener {
         recyclerView = recycler_view
         recipeListViewModel = ViewModelProvider(this, providerFactory)
             .get(RecipeListViewModel::class.java)
+        Timber.d("RecipeList viewModel: ${recipeListViewModel.hashCode()}")
         Timber.d("ProviderFactory Entity: $providerFactory")
         initRecyclerView()
         subscribeObservers()
+        recipeListViewModel.searchRecipes("chicken", 1)
     }
-
 
 
     private fun subscribeObservers() {
         recipeListViewModel.getRecipesList().observe(this@RecipeListActivity,
             Observer<List<Recipe>> {
                 it?.let {
+                    Timber.d("List of recipes: $it")
                     recipeListAdapter.setRecipes(it)
                 }
+
             })
+        recipeListViewModel.getRecipesListError().observe(this@RecipeListActivity,
+        Observer<String> {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun initRecyclerView() {

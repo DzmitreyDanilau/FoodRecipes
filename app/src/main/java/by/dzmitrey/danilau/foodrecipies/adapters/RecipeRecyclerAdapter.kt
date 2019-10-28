@@ -7,6 +7,8 @@ import by.dzmitrey.danilau.foodrecipies.R
 import by.dzmitrey.danilau.foodrecipies.models.backend.Recipe
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import timber.log.Timber
+import kotlin.math.roundToInt
 
 class RecipeRecyclerAdapter(private val listener: OnRecipeListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -20,16 +22,18 @@ class RecipeRecyclerAdapter(private val listener: OnRecipeListener) :
     override fun getItemCount() = recipes.size ?: 0
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        recipes.forEach {
-            (holder as RecipeViewHolder).title.text = it.title
-            holder.publisher.text = it.publisher
-            holder.socialScore.text = it.socialRank.toString()
+            Timber.d("$recipes")
+            (holder as RecipeViewHolder).title.text = recipes[position].title
+            holder.publisher.text = recipes[position].publisher
+            holder.socialScore.text = recipes[position].socialRank.roundToInt().toString()
             val glideRequest = RequestOptions().placeholder(R.drawable.ic_launcher_background)
+            val imageUrl = recipes[position].imageUrl
+            Timber.d("$imageUrl")
             Glide.with(holder.dishImage.context)
                 .setDefaultRequestOptions(glideRequest)
-                .load(it.imageUrl)
+                .load(recipes[position].imageUrl)
+                .error(R.drawable.ic_login_error)
                 .into(holder.dishImage)
-        }
     }
 
     fun setRecipes(recipesList: List<Recipe>) {
