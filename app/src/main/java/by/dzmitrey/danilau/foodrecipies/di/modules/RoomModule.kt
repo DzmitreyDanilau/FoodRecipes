@@ -15,21 +15,17 @@ import timber.log.Timber
 class RoomModule {
     @ApplicationScope
     @Provides
-    fun providesDatabaseEntity(application: Application): ILocalStorage? {
-        var dataBase: ILocalStorage? = null
-        if(dataBase == null){
-            synchronized(RecipesDataBase::class.java) {
-                if (dataBase == null) {
-                    dataBase = Room.databaseBuilder(
-                        application,
-                        RecipesDataBase::class.java,
-                        by.dzmitrey.danilau.foodrecipies.util.DATA_BASE_NAME
-                    )
-                        .build()
-                }
-            }
+    fun providesDatabaseEntity(application: Application): ILocalStorage {
+        var dataBaseInstance: ILocalStorage
+        synchronized(RecipesDataBase::class.java) {
+            dataBaseInstance = Room.databaseBuilder(
+                application,
+                RecipesDataBase::class.java,
+                by.dzmitrey.danilau.foodrecipies.util.DATA_BASE_NAME
+            )
+                .build()
         }
-        return dataBase
+        return dataBaseInstance
     }
 
     @ApplicationScope
