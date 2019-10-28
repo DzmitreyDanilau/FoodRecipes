@@ -10,20 +10,25 @@ import dagger.Module
 import dagger.Provides
 import timber.log.Timber
 
+
 @Module
 class RoomModule {
-
     @ApplicationScope
     @Provides
-    fun providesDatabaseEntity(application: Application): ILocalStorage {
-        val dataBase = Room.databaseBuilder(
-            application,
-            RecipesDataBase::class.java,
-            by.dzmitrey.danilau.foodrecipies.util.DATA_BASE_NAME
-        )
-            .build()
-        Timber.d("DataBase entity: $dataBase")
-
+    fun providesDatabaseEntity(application: Application): ILocalStorage? {
+        var dataBase: ILocalStorage? = null
+        if(dataBase == null){
+            synchronized(RecipesDataBase::class.java) {
+                if (dataBase == null) {
+                    dataBase = Room.databaseBuilder(
+                        application,
+                        RecipesDataBase::class.java,
+                        by.dzmitrey.danilau.foodrecipies.util.DATA_BASE_NAME
+                    )
+                        .build()
+                }
+            }
+        }
         return dataBase
     }
 
