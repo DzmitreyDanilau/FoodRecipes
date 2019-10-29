@@ -1,5 +1,7 @@
 package by.dzmitrey.danilau.foodrecipies.util
 
+import android.app.Application
+import by.dzmitrey.danilau.foodrecipies.repositories.IRecipeRepository
 import io.reactivex.Flowable
 import io.reactivex.FlowableEmitter
 import io.reactivex.Single
@@ -9,32 +11,27 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 
-abstract class NetworkBoundSource<LocalType, RemoteType>(private val emitter: FlowableEmitter<Resource<LocalType>>) {
+abstract class NetworkBoundSource<LocalType, RemoteType>(localSource: IRecipeRepository.LocalDataSource) {
     private val disposable = CompositeDisposable()
+    lateinit var result: Flowable<Resource<LocalType>>
 
     init {
-        val dataTest = loadfromDB()
-            .map {
-                Resource.Loading<LocalType>()
-            }.subscribe {
-                emitter.onNext(it)
-            }
-        disposable.add(dataTest)
-
-        loadFromRemote()
-            .map(mapper())
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(Schedulers.io())
-            .subscribe(
-                {
-                    disposable.delete(dataTest)
+        val dBObservable: Flowable<LocalType> = Flowable.defer{
+            loadfromDB().observeOn(Schedulers.computation())
+        }
+        val networkObservable: Single<LocalType> = Single.defer{
+            loadFromRemote()
+                .map (mapper())
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
+                .doOnSuccess {
+                    Timber.d("Result from remote: $it")
                     saveCallResult(it)
-                    loadfromDB().map { localDataType ->
-                        Resource.Success(localDataType)
-                    }
-                        .subscribe({ emitter.onNext(it) }, { Timber.d("Error ${it.message}") })
-                },
-                {Timber.d("Error ${it.message}")})
+                }.onErrorReturn {
+                    Timber.d("Error ${it.message}")
+                    throw it
+                }
+        }
     }
 
     protected abstract fun loadFromRemote(): Single<RemoteType>

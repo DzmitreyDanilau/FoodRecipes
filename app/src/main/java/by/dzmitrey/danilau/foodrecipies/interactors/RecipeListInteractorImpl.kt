@@ -5,8 +5,11 @@ import by.dzmitrey.danilau.foodrecipies.network.responses.RecipeSearchResponse
 import by.dzmitrey.danilau.foodrecipies.repositories.IRecipeRepository
 import by.dzmitrey.danilau.foodrecipies.util.NetworkBoundSource
 import by.dzmitrey.danilau.foodrecipies.util.Resource
+import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
+import io.reactivex.FlowableEmitter
 import io.reactivex.Single
+import io.reactivex.functions.Function
 import javax.inject.Inject
 
 class RecipeListInteractorImpl @Inject constructor(
@@ -16,10 +19,7 @@ class RecipeListInteractorImpl @Inject constructor(
     private var recipeResponseList = mutableListOf<RecipeLocal>()
 
     override fun fetchDataFromApi(query: String, page: Int): Flowable<Resource<List<RecipeLocal>>> {
-        return Flowable.create(object :
-            NetworkBoundSource<Resource<List<RecipeLocal>>, Resource<RecipeSearchResponse>>() {
 
-        })
 //        return networkDataSource.searchRecipesByApi(query, page)
 //            .doOnSuccess { Timber.d("Request result: $it") }
 //            .flatMap(Function<RecipeSearchResponse, SingleSource<List<RecipeLocal>>> {
