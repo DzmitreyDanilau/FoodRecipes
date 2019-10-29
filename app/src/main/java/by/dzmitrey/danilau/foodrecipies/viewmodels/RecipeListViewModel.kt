@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.dzmitrey.danilau.foodrecipies.interactors.IInteractor
-import by.dzmitrey.danilau.foodrecipies.models.backend.Recipe
+import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
+import by.dzmitrey.danilau.foodrecipies.models.backend.RecipeApiResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -14,7 +15,7 @@ class RecipeListViewModel @Inject constructor(
     private val recipeListInteractor: IInteractor.RecipeListInteractor
 ) :
     ViewModel() {
-    private val recipesList: MutableLiveData<List<Recipe>> = MutableLiveData()
+    private val recipesList: MutableLiveData<List<RecipeLocal>> = MutableLiveData()
     private val recipesListError: MutableLiveData<String> = MutableLiveData()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -33,7 +34,7 @@ class RecipeListViewModel @Inject constructor(
         )
     }
 
-    fun getRecipesList(): LiveData<List<Recipe>> = recipesList
+    fun getRecipesList(): LiveData<List<RecipeLocal>> = recipesList
     fun getRecipesListError(): LiveData<String> = recipesListError
 }
 
