@@ -9,6 +9,7 @@ import by.dzmitrey.danilau.foodrecipies.models.backend.RecipeApiResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import javax.inject.Inject
 
 class RecipeListViewModel @Inject constructor(
@@ -29,6 +30,7 @@ class RecipeListViewModel @Inject constructor(
                         recipesList.postValue(it)
                     },
                     {
+                        Timber.d("${it.message}")
                         recipesListError.postValue(it.message)
                     })
         )

@@ -1,15 +1,14 @@
 package by.dzmitrey.danilau.foodrecipies.interactors
 
+import by.dzmitrey.danilau.foodrecipies.models.BaseRecipe
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
 import by.dzmitrey.danilau.foodrecipies.network.responses.RecipeSearchResponse
 import by.dzmitrey.danilau.foodrecipies.repositories.IRecipeRepository
-import by.dzmitrey.danilau.foodrecipies.util.NetworkBoundSource
-import by.dzmitrey.danilau.foodrecipies.util.Resource
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.FlowableEmitter
 import io.reactivex.Single
+import io.reactivex.SingleSource
 import io.reactivex.functions.Function
+import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import javax.inject.Inject
 
 class RecipeListInteractorImpl @Inject constructor(
@@ -18,14 +17,21 @@ class RecipeListInteractorImpl @Inject constructor(
 ) : IInteractor.RecipeListInteractor {
     private var recipeResponseList = mutableListOf<RecipeLocal>()
 
-    override fun fetchDataFromApi(query: String, page: Int): Flowable<Resource<List<RecipeLocal>>> {
-
-//        return networkDataSource.searchRecipesByApi(query, page)
-//            .doOnSuccess { Timber.d("Request result: $it") }
-//            .flatMap(Function<RecipeSearchResponse, SingleSource<List<RecipeLocal>>> {
-//                transformDataToAppModel(it)
-//                return@Function Single.just(recipeResponseList)
-//            })
+    override fun fetchDataFromApi(query: String, page: Int): Single<List<RecipeLocal>> {
+        return networkDataSource.searchRecipesByApi(query, page)
+            .map { t ->
+                transformDataToAppModel(t)
+                recipeResponseList
+            }
+            .doOnSuccess {
+                Timber.d("Thread inside fetchData: ${Thread.currentThread().name}")
+                Timber.d("Request result: $it")
+                saveDataToDB(it)
+            }
+            .subscribeOn(Schedulers.computation())
+            .flatMap(Function<List<BaseRecipe>, SingleSource<List<RecipeLocal>>> {
+                return@Function Single.just(recipeResponseList)
+            })
     }
 
 
@@ -35,8 +41,9 @@ class RecipeListInteractorImpl @Inject constructor(
 
     }
 
+
     override fun saveDataToDB(recipeList: List<RecipeLocal>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        localDataSource.saveAll(recipeList)
     }
 
     override fun transformDataToAppModel(recipeSearchResponse: RecipeSearchResponse) {
@@ -46,7 +53,6 @@ class RecipeListInteractorImpl @Inject constructor(
                     0,
                     it.publisher,
                     it.title,
-                    null,
                     it.id,
                     it.imageUrl,
                     it.socialRank.toInt()

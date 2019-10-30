@@ -1,9 +1,7 @@
 package by.dzmitrey.danilau.foodrecipies.util
 
-import android.app.Application
 import by.dzmitrey.danilau.foodrecipies.repositories.IRecipeRepository
 import io.reactivex.Flowable
-import io.reactivex.FlowableEmitter
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function

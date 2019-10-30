@@ -5,9 +5,9 @@ import by.dzmitrey.danilau.foodrecipies.sources.local.RecipeDao
 import io.reactivex.Single
 import javax.inject.Inject
 
-class RecipeListLocalDataSource @Inject constructor(reipeDao: RecipeDao) :
+class RecipeListLocalDataSource @Inject constructor(private val recipeDao: RecipeDao) :
     IRecipeRepository.LocalDataSource {
-    override fun searchRecipesByDB(query: String): Single<List<RecipeLocal>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun saveAll(itemsList: List<RecipeLocal>) {
+        return recipeDao.saveAll(itemsList)
     }
 }
