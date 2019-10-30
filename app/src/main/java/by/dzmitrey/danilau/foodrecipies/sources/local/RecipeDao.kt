@@ -4,6 +4,7 @@ import androidx.room.*
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
 import by.dzmitrey.danilau.foodrecipies.util.DATA_BASE_NAME
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface RecipeDao {
@@ -15,7 +16,7 @@ interface RecipeDao {
      fun save(item: RecipeLocal)
 
     @Insert
-     fun saveAll(itemsList: List<RecipeLocal>)
+     fun saveAll(itemsList: List<RecipeLocal>): Single<List<Long>>
 
     @Delete
      fun delete(item: RecipeLocal)

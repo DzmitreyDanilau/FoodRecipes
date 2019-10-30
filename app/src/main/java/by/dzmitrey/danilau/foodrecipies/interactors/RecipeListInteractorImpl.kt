@@ -43,7 +43,10 @@ class RecipeListInteractorImpl @Inject constructor(
 
 
     override fun saveDataToDB(recipeList: List<RecipeLocal>) {
-        localDataSource.saveAll(recipeList)
+        val result = localDataSource.saveAll(recipeList)
+        result.map {
+            Timber.d("Saved items: $it")
+        }
     }
 
     override fun transformDataToAppModel(recipeSearchResponse: RecipeSearchResponse) {
