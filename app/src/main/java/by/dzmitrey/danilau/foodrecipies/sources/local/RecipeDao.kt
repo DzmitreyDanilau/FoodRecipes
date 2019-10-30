@@ -13,7 +13,7 @@ interface RecipeDao {
      fun getAll(): Flowable<List<RecipeLocal>>
 
     @Insert
-     fun save(item: RecipeLocal)
+     fun save(item: RecipeLocal):Single<Long>
 
     @Insert
      fun saveAll(itemsList: List<RecipeLocal>): Single<List<Long>>

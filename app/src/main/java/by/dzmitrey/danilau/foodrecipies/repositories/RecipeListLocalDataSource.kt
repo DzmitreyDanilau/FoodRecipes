@@ -7,7 +7,9 @@ import javax.inject.Inject
 
 class RecipeListLocalDataSource @Inject constructor(private val recipeDao: RecipeDao) :
     IRecipeRepository.LocalDataSource {
-    override fun saveAll(itemsList: List<RecipeLocal>):Single<List<Long>> {
-        return recipeDao.saveAll(itemsList)
+    override fun save(item: RecipeLocal): Single<Long> {
+        val result = recipeDao.save(item)
+        return result
+
     }
 }
