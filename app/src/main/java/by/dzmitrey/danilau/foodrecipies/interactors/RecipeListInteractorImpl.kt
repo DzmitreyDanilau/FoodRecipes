@@ -15,12 +15,13 @@ class RecipeListInteractorImpl @Inject constructor(
     private val networkDataSource: IRecipeRepository.NetworkDataSource,
     private val localDataSource: IRecipeRepository.LocalDataSource
 ) : IInteractor.RecipeListInteractor {
-    private var recipeResponseList = mutableListOf<RecipeLocal>()
+    private var recipeResponseList:MutableList<RecipeLocal>? = mutableListOf<RecipeLocal>()
 
     override fun fetchDataFromApi(query: String, page: Int): Single<List<RecipeLocal>> {
 
 
         return networkDataSource.searchRecipesByApi(query, page)
+
             .map {
                 transformDataToAppModel(it)
             }
@@ -61,7 +62,7 @@ class RecipeListInteractorImpl @Inject constructor(
 
     override fun transformDataToAppModel(recipeSearchResponse: RecipeSearchResponse): List<RecipeLocal> {
         recipeSearchResponse.recipesList?.map {
-            recipeResponseList.add(
+            recipeResponseList?.add(
                 RecipeLocal(
                     0,
                     it.publisher,
@@ -71,8 +72,7 @@ class RecipeListInteractorImpl @Inject constructor(
                     it.socialRank.toInt()
                 )
             )
-
         }
-        return recipeResponseList
+        return recipeResponseList!!
     }
 }

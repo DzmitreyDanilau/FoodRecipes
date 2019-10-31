@@ -10,4 +10,5 @@
     <string name="hint_user_e_mail">User e-mail</string>
     <string name="hint_password">Password</string>
     <string name="sign_out">Sign out</string>
+    <string name="search_view_hint">Beef steak…</string>
 </resources>

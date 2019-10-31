@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,15 +30,15 @@ class RecipeListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_list)
         progressBar = progress_bar
-        showProgressBar(true)
         recyclerView = recycler_view_recipe_list
         recipeListViewModel = ViewModelProvider(this, providerFactory)
             .get(RecipeListViewModel::class.java)
         Timber.d("RecipeList viewModel: ${recipeListViewModel.hashCode()}")
         Timber.d("ProviderFactory Entity: $providerFactory")
         initRecyclerView()
+        initSearchView()
         subscribeObservers()
-        recipeListViewModel.searchRecipes("chicken", 1)
+
     }
 
 
@@ -47,12 +48,10 @@ class RecipeListActivity : BaseActivity() {
                 it?.let {
                     Timber.d("List of recipes: $it")
                     recipeListAdapter.setRecipes(it)
-                    showProgressBar(false)
                 }
             })
         recipeListViewModel.getRecipesListError().observe(this@RecipeListActivity,
             Observer<String> {
-                showProgressBar(false)
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             })
     }
@@ -61,6 +60,24 @@ class RecipeListActivity : BaseActivity() {
         recipeListAdapter = RecipeRecyclerAdapter(this@RecipeListActivity)
         recyclerView.adapter = recipeListAdapter
         recyclerView.layoutManager = LinearLayoutManager(this@RecipeListActivity)
+    }
+
+    private fun initSearchView() {
+        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener  {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    recipeListAdapter.displayLoading()
+                    recipeListViewModel.searchRecipes(it, 1)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
+
     }
 
     fun showProgressBar(visibility: Boolean) {
