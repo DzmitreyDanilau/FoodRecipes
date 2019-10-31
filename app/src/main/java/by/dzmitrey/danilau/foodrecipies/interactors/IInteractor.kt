@@ -9,6 +9,7 @@ interface IInteractor {
         fun fetchDataFromApi(query: String, page: Int): Single<List<RecipeLocal>>
         fun fetchDataFromDB(): Single<List<RecipeLocal>>
         fun saveDataToDB(recipeList: List<RecipeLocal>)
-        fun transformDataToAppModel(recipeSearchResponse: RecipeSearchResponse)
+        fun transformDataToAppModel(recipeSearchResponse: RecipeSearchResponse): List<RecipeLocal>
+        fun shouldFetch(): Boolean
     }
 }

@@ -10,17 +10,17 @@ import io.reactivex.Single
 interface RecipeDao {
 
     @Query("SELECT * FROM $DATA_BASE_NAME")
-     fun getAll(): Flowable<List<RecipeLocal>>
+    fun getAll(): Flowable<List<RecipeLocal>>
 
     @Insert
-     fun save(item: RecipeLocal):Single<Long>
+    fun save(item: RecipeLocal)
 
     @Insert
-     fun saveAll(itemsList: List<RecipeLocal>): Single<List<Long>>
+    fun saveAll(itemsList: List<RecipeLocal>): Single<List<Long>>
 
     @Delete
-     fun delete(item: RecipeLocal)
+    fun delete(item: RecipeLocal)
 
     @Update
-     fun update(item: RecipeLocal)
+    fun update(item: RecipeLocal)
 }

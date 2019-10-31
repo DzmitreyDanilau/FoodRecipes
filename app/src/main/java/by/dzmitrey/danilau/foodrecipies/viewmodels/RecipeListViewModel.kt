@@ -23,15 +23,19 @@ class RecipeListViewModel @Inject constructor(
     fun searchRecipes(query: String, page: Int) {
         compositeDisposable.add(
             recipeListInteractor.fetchDataFromApi(query, page)
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.newThread())
+                .doOnSuccess {
+                    Timber.d("Thread Search recipes: ${Thread.currentThread().name}")
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        recipesList.postValue(it)
+                        Timber.d("In Subscribe: ${Thread.currentThread().name}")
+                        recipesList.value = it
                     },
                     {
                         Timber.d("${it.message}")
-                        recipesListError.postValue(it.message)
+                        recipesListError.value = it.message
                     })
         )
     }

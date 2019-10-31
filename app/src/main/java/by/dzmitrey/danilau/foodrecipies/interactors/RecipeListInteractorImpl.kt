@@ -18,22 +18,35 @@ class RecipeListInteractorImpl @Inject constructor(
     private var recipeResponseList = mutableListOf<RecipeLocal>()
 
     override fun fetchDataFromApi(query: String, page: Int): Single<List<RecipeLocal>> {
+
+
         return networkDataSource.searchRecipesByApi(query, page)
-            .map { t ->
-                transformDataToAppModel(t)
-                recipeResponseList
+            .map {
+                transformDataToAppModel(it)
             }
             .doOnSuccess {
                 Timber.d("Thread inside fetchData: ${Thread.currentThread().name}")
-                Timber.d("Request result: $it")
                 saveDataToDB(it)
+            }
+            .doOnError {
+                handleError(it)
             }
             .subscribeOn(Schedulers.computation())
             .flatMap(Function<List<BaseRecipe>, SingleSource<List<RecipeLocal>>> {
+                Timber.d("Thread flatmap ${Thread.currentThread().name}")
                 return@Function Single.just(recipeResponseList)
             })
     }
 
+    private fun handleError(error: Throwable?) {
+        Timber.d("Error ${error?.message}")
+
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun shouldFetch(): Boolean {
+        return false
+    }
 
     override fun fetchDataFromDB(): Single<List<RecipeLocal>> {
 //        localDataSource.searchRecipesByDB()
@@ -46,7 +59,7 @@ class RecipeListInteractorImpl @Inject constructor(
         localDataSource.save(recipeList[0])
     }
 
-    override fun transformDataToAppModel(recipeSearchResponse: RecipeSearchResponse) {
+    override fun transformDataToAppModel(recipeSearchResponse: RecipeSearchResponse): List<RecipeLocal> {
         recipeSearchResponse.recipesList?.map {
             recipeResponseList.add(
                 RecipeLocal(
@@ -58,6 +71,8 @@ class RecipeListInteractorImpl @Inject constructor(
                     it.socialRank.toInt()
                 )
             )
+
         }
+        return recipeResponseList
     }
 }

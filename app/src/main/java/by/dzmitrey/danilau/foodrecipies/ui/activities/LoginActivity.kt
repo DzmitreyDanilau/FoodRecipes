@@ -1,6 +1,8 @@
 package by.dzmitrey.danilau.foodrecipies.ui.activities
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import by.dzmitrey.danilau.foodrecipies.R
@@ -30,6 +32,8 @@ class LoginActivity : BaseActivity(), GoogleApiClient.ConnectionCallbacks,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val cm = application.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = cm.activeNetworkInfo
         setContentView(R.layout.activity_login)
         signInButton = btn_sign_in
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

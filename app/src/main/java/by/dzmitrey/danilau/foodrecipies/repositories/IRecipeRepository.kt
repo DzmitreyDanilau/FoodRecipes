@@ -10,7 +10,7 @@ interface IRecipeRepository {
     }
 
     interface LocalDataSource {
-        fun save(item: RecipeLocal): Single<Long>
+        fun save(item: RecipeLocal)
     }
 
 }

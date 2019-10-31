@@ -50,10 +50,10 @@ class RecipeListActivity : BaseActivity() {
                     recipeListAdapter.setRecipes(it)
                     showProgressBar(false)
                 }
-
             })
         recipeListViewModel.getRecipesListError().observe(this@RecipeListActivity,
             Observer<String> {
+                showProgressBar(false)
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             })
     }

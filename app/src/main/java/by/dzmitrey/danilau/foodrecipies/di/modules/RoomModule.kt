@@ -25,6 +25,7 @@ class RoomModule {
             )
                 .build()
         }
+        Timber.d("DataBase: ${dataBaseInstance.hashCode()}")
         return dataBaseInstance
     }
 

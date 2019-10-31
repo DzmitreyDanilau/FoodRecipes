@@ -5,14 +5,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import by.dzmitrey.danilau.foodrecipies.models.BaseRecipe
 import org.jetbrains.annotations.NotNull
-import org.jetbrains.annotations.Nullable
 
 @Entity(tableName = by.dzmitrey.danilau.foodrecipies.util.DATA_BASE_NAME)
 data class RecipeLocal(
     @PrimaryKey(autoGenerate = true)
     @NotNull
     @ColumnInfo(name = "rId")
-    var rId: Int = 0,
+    var rId: Int,
     @ColumnInfo(name = "publisher")
     val publisher: String? = "",
     @ColumnInfo(name = "title")

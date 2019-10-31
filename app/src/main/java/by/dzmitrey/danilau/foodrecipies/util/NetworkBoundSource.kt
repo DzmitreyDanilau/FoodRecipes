@@ -1,6 +1,5 @@
 package by.dzmitrey.danilau.foodrecipies.util
 
-import by.dzmitrey.danilau.foodrecipies.repositories.IRecipeRepository
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -9,25 +8,22 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 
-abstract class NetworkBoundSource<LocalType, RemoteType>(localSource: IRecipeRepository.LocalDataSource) {
+abstract class NetworkBoundSource<LocalType, RemoteType>() {
     private val disposable = CompositeDisposable()
     lateinit var result: Flowable<Resource<LocalType>>
 
     init {
-        val dBObservable: Flowable<LocalType> = Flowable.defer{
+        val dBObservable: Flowable<LocalType> = Flowable.defer {
             loadfromDB().observeOn(Schedulers.computation())
         }
-        val networkObservable: Single<LocalType> = Single.defer{
+        val networkObservable: Single<LocalType> = Single.defer {
             loadFromRemote()
-                .map (mapper())
+                .map(mapper())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
                 .doOnSuccess {
                     Timber.d("Result from remote: $it")
                     saveCallResult(it)
-                }.onErrorReturn {
-                    Timber.d("Error ${it.message}")
-                    throw it
                 }
         }
     }
