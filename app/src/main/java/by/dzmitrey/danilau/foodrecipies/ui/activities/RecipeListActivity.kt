@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import by.dzmitrey.danilau.foodrecipies.R
 import by.dzmitrey.danilau.foodrecipies.adapters.RecipeRecyclerAdapter
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
-import by.dzmitrey.danilau.foodrecipies.models.backend.RecipeApiResponse
 import by.dzmitrey.danilau.foodrecipies.viewmodels.RecipeListViewModel
 import by.dzmitrey.danilau.foodrecipies.viewmodels.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_recipe_list.*
@@ -31,7 +30,7 @@ class RecipeListActivity : BaseActivity() {
         setContentView(R.layout.activity_recipe_list)
         progressBar = progress_bar
         showProgressBar(true)
-        recyclerView = recycler_view
+        recyclerView = recycler_view_recipe_list
         recipeListViewModel = ViewModelProvider(this, providerFactory)
             .get(RecipeListViewModel::class.java)
         Timber.d("RecipeList viewModel: ${recipeListViewModel.hashCode()}")
