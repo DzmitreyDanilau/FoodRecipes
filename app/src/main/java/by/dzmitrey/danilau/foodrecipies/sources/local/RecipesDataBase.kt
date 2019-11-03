@@ -7,6 +7,6 @@ import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
 
 const val DATA_BASE_VERSION = 1
 
-@Database(entities = [RecipeLocal::class], version = DATA_BASE_VERSION, exportSchema = true)
+@Database(entities = [RecipeLocal::class], version = DATA_BASE_VERSION, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class RecipesDataBase : RoomDatabase(), ILocalStorage

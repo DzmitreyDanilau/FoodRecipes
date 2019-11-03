@@ -1,7 +1,6 @@
 package by.dzmitrey.danilau.foodrecipies.ui.activities
 
 import android.os.Bundle
-import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -38,9 +37,10 @@ class RecipeListActivity : BaseActivity() {
         initRecyclerView()
         initSearchView()
         subscribeObservers()
-
+        if (!recipeListViewModel.isViewRecipes()) {
+            displaySearchCategories()
+        }
     }
-
 
     private fun subscribeObservers() {
         recipeListViewModel.getRecipesList().observe(this@RecipeListActivity,
@@ -63,7 +63,7 @@ class RecipeListActivity : BaseActivity() {
     }
 
     private fun initSearchView() {
-        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener  {
+        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
                     recipeListAdapter.displayLoading()
@@ -80,7 +80,17 @@ class RecipeListActivity : BaseActivity() {
 
     }
 
-    fun showProgressBar(visibility: Boolean) {
-        progressBar.visibility = if (visibility) View.VISIBLE else View.GONE
+    private fun displaySearchCategories() {
+        recipeListViewModel.setIsViewRecipes(false)
+        recipeListAdapter.displaySearchCategories()
+    }
+
+    override fun onRecipeClick(position: Int) {
+        super.onRecipeClick(position)
+    }
+
+    override fun onCategoryClick(category: String) {
+        recipeListAdapter.displayLoading()
+        recipeListViewModel.searchRecipes(category, 1)
     }
 }

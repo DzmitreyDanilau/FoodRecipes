@@ -16,11 +16,13 @@ class RecipeListViewModel @Inject constructor(
     private val recipeListInteractor: IInteractor.RecipeListInteractor
 ) :
     ViewModel() {
+    private var isViewCategories: Boolean = false
     private val recipesList: MutableLiveData<List<RecipeLocal>> = MutableLiveData()
     private val recipesListError: MutableLiveData<String> = MutableLiveData()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun searchRecipes(query: String, page: Int) {
+        isViewCategories = true
         compositeDisposable.add(
             recipeListInteractor.fetchDataFromApi(query, page)
                 .subscribeOn(Schedulers.newThread())
@@ -42,6 +44,11 @@ class RecipeListViewModel @Inject constructor(
 
     fun getRecipesList(): LiveData<List<RecipeLocal>> = recipesList
     fun getRecipesListError(): LiveData<String> = recipesListError
+    fun isViewRecipes() = isViewCategories
+    fun setIsViewRecipes(isViewRecipes: Boolean) {
+        isViewCategories = isViewRecipes
+    }
+
 }
 
 //TODO change type of recipesList to RecipeLocal
