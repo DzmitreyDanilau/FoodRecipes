@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="by.dzmitrey.danilau.foodrecipies.services.firebase.NotificationService">
+        <service android:name="by.dzmitrey.danilau.foodrecipies.services.firebase.FirebaseNotificationService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
