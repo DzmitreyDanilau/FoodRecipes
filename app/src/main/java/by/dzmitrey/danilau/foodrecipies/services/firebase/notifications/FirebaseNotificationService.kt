@@ -1,4 +1,4 @@
-package by.dzmitrey.danilau.foodrecipies.services.firebase
+package by.dzmitrey.danilau.foodrecipies.services.firebase.notifications
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
