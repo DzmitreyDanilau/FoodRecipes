@@ -35,7 +35,7 @@ class RecipeRecyclerAdapter(private val listener: OnRecipeListener) :
             }
             CATEGORY_TYPE -> {
                 val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.layout_loading_list_item, parent, false)
+                    .inflate(R.layout.layout_category_list_item, parent, false)
                 return CategoryViewHolder(view, listener)
             }
             else -> {
@@ -55,18 +55,18 @@ class RecipeRecyclerAdapter(private val listener: OnRecipeListener) :
         val itemViewType = getItemViewType(position)
         if (itemViewType == RECIPE_TYPE) {
             bindRecipeViewHolder(holder, position)
-        } else {
+        } else if(itemViewType == CATEGORY_TYPE) {
             (holder as CategoryViewHolder).categoryTitle.text = recipes[position].title
             val glideRequest = RequestOptions().placeholder(R.drawable.ic_launcher_background)
             val picturePath = Uri.parse(
                 "android.resource://by.dzmitrey.danilau.foodrecipies/drawable/" +
                         recipes[position].imageUrl
             )
-//            Glide.with(holder.categoryImage.context)
-//                .setDefaultRequestOptions(glideRequest)
-//                .load(picturePath)
-//                .error(R.drawable.ic_login_error)
-//                .into(holder.categoryImage)
+            Glide.with(holder.categoryImage.context)
+                .setDefaultRequestOptions(glideRequest)
+                .load(picturePath)
+                .error(R.drawable.ic_login_error)
+                .into(holder.categoryImage)
         }
     }
 
@@ -134,9 +134,9 @@ class RecipeRecyclerAdapter(private val listener: OnRecipeListener) :
                 return true
             }
         }
-
         return false
     }
+
 
     fun setRecipes(recipesList: List<RecipeLocal>) {
         recipes = recipesList as MutableList<RecipeLocal>
