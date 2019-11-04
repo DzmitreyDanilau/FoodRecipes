@@ -10,7 +10,11 @@ class CategoryViewHolder(view: View, private val listener: OnRecipeListener) :
     RecyclerView.ViewHolder(view),
     View.OnClickListener {
 
-    var categoryImage:CircleImageView = view.findViewById(R.id.category_image)
+    init {
+        view.setOnClickListener(this)
+    }
+
+    var categoryImage: CircleImageView = view.findViewById(R.id.category_image)
     var categoryTitle: TextView = view.findViewById(R.id.category_title)
 
     override fun onClick(v: View?) {
