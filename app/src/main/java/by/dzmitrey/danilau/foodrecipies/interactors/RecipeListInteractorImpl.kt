@@ -1,13 +1,13 @@
 package by.dzmitrey.danilau.foodrecipies.interactors
 
-import by.dzmitrey.danilau.foodrecipies.models.BaseRecipe
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
 import by.dzmitrey.danilau.foodrecipies.network.responses.RecipeSearchResponse
 import by.dzmitrey.danilau.foodrecipies.repositories.IRecipeRepository
+import by.dzmitrey.danilau.foodrecipies.util.NetworkBoundSource
+import io.reactivex.Flowable
 import io.reactivex.Single
-import io.reactivex.SingleSource
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -15,49 +15,70 @@ class RecipeListInteractorImpl @Inject constructor(
     private val networkDataSource: IRecipeRepository.NetworkDataSource,
     private val localDataSource: IRecipeRepository.LocalDataSource
 ) : IInteractor.RecipeListInteractor {
-    private var recipeResponseList:MutableList<RecipeLocal>? = mutableListOf<RecipeLocal>()
+    private var recipeResponseList: MutableList<RecipeLocal>? = mutableListOf()
+    private val compositeDisposable = CompositeDisposable()
 
-    override fun fetchDataFromApi(query: String, page: Int): Single<List<RecipeLocal>> {
-
-
-        return networkDataSource.searchRecipesByApi(query, page)
-
-            .map {
-                transformDataToAppModel(it)
+    override fun fetchData(query: String, page: Int): Flowable<List<RecipeLocal>> {
+        return object : NetworkBoundSource<List<RecipeLocal>, RecipeSearchResponse>() {
+            override fun loadFromRemote(): Single<RecipeSearchResponse> {
+                return fetchDataFromRemote(query, page)
             }
-            .doOnSuccess {
-                Timber.d("Thread inside fetchData: ${Thread.currentThread().name}")
-                saveDataToDB(it)
+
+            override fun shouldFetch(): Boolean {
+                return true
             }
-            .doOnError {
-                handleError(it)
+
+            override fun loadfromDB(): Flowable<List<RecipeLocal>> {
+                return loadfromDB()
             }
-            .subscribeOn(Schedulers.computation())
-            .flatMap(Function<List<BaseRecipe>, SingleSource<List<RecipeLocal>>> {
-                Timber.d("Thread flatmap ${Thread.currentThread().name}")
-                return@Function Single.just(recipeResponseList)
-            })
+
+            override fun saveCallResult(data: List<RecipeLocal>) {
+                saveDataToDB(data)
+            }
+
+            override fun mapper(): Function<RecipeSearchResponse, List<RecipeLocal>> {
+                return Function {
+                    transformDataToAppModel(it)
+                }
+            }
+        }.getResult()
+//        val networkObservable = networkDataSource.searchRecipesByApi(query, page)
+//            .subscribeOn(Schedulers.io())
+//            .map {
+//                transformDataToAppModel(it)
+//            }
+//            .doOnSuccess {
+//                Timber.d("Thread inside fetchData: ${Thread.currentThread().name}")
+//                saveDataToDB(it)
+//            }
+//            .doOnError {
+//                handleError(it)
+//            }
+//            .flatMap(Function<List<BaseRecipe>, SingleSource<List<RecipeLocal>>> {
+//                Timber.d("Thread flatmap ${Thread.currentThread().name}")
+//                return@Function Single.just(recipeResponseList)
+//            })
+//        return Flowable.concat(fetchDataFromDB(query),networkObservable)
     }
 
     private fun handleError(error: Throwable?) {
         Timber.d("Error ${error?.message}")
-
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun shouldFetch(): Boolean {
         return false
     }
 
-    override fun fetchDataFromDB(): Single<List<RecipeLocal>> {
-//        localDataSource.searchRecipesByDB()
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-
+    override fun fetchDataFromDB(query: String): Flowable<List<RecipeLocal>> {
+        return localDataSource.getRecipes(query)
     }
 
+    override fun fetchDataFromRemote(query: String, page: Int): Single<RecipeSearchResponse> {
+        return networkDataSource.searchRecipesByApi(query, page)
+    }
 
     override fun saveDataToDB(recipeList: List<RecipeLocal>) {
-        localDataSource.save(recipeList[0])
+        localDataSource.saveAllRecipes(recipeList)
     }
 
     override fun transformDataToAppModel(recipeSearchResponse: RecipeSearchResponse): List<RecipeLocal> {

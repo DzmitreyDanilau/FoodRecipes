@@ -9,13 +9,13 @@ import io.reactivex.Single
 @Dao
 interface RecipeDao {
 
-    @Query("SELECT * FROM $DATA_BASE_NAME")
-    fun getAll(): Flowable<List<RecipeLocal>>
+    @Query("SELECT * FROM $DATA_BASE_NAME WHERE title IN (:query) ")
+    fun getRecipes(query: String): Flowable<List<RecipeLocal>>
 
     @Insert
     fun save(item: RecipeLocal)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveAll(itemsList: List<RecipeLocal>): Single<List<Long>>
 
     @Delete

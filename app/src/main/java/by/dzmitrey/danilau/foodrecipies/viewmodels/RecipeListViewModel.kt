@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.dzmitrey.danilau.foodrecipies.interactors.IInteractor
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
-import by.dzmitrey.danilau.foodrecipies.models.backend.RecipeApiResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -24,20 +23,20 @@ class RecipeListViewModel @Inject constructor(
     fun searchRecipes(query: String, page: Int) {
         isViewCategories = true
         compositeDisposable.add(
-            recipeListInteractor.fetchDataFromApi(query, page)
+            recipeListInteractor.fetchData(query, page)
                 .subscribeOn(Schedulers.newThread())
-                .doOnSuccess {
+                .doOnComplete {
                     Timber.d("Thread Search recipes: ${Thread.currentThread().name}")
                 }
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(
                     {
                         Timber.d("In Subscribe: ${Thread.currentThread().name}")
-                        recipesList.value = it
+                        recipesList.postValue(it)
                     },
                     {
                         Timber.d("${it.message}")
-                        recipesListError.value = it.message
+                        recipesListError.postValue(it.message)
                     })
         )
     }
