@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.dzmitrey.danilau.foodrecipies.interactors.IInteractor
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
@@ -15,13 +14,13 @@ class RecipeListViewModel @Inject constructor(
     private val recipeListInteractor: IInteractor.RecipeListInteractor
 ) :
     ViewModel() {
-    private var isViewCategories: Boolean = false
+    private var isViewRecipes: Boolean = false
     private val recipesList: MutableLiveData<List<RecipeLocal>> = MutableLiveData()
     private val recipesListError: MutableLiveData<String> = MutableLiveData()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun searchRecipes(query: String, page: Int) {
-        isViewCategories = true
+        isViewRecipes = true
         compositeDisposable.add(
             recipeListInteractor.fetchData(query, page)
                 .subscribeOn(Schedulers.newThread())
@@ -43,9 +42,19 @@ class RecipeListViewModel @Inject constructor(
 
     fun getRecipesList(): LiveData<List<RecipeLocal>> = recipesList
     fun getRecipesListError(): LiveData<String> = recipesListError
-    fun isViewRecipes() = isViewCategories
+    fun isViewRecipes() = isViewRecipes
+
     fun setIsViewRecipes(isViewRecipes: Boolean) {
-        isViewCategories = isViewRecipes
+        this.isViewRecipes = isViewRecipes
+    }
+
+    fun onBackPressed(): Boolean {
+        return if (isViewRecipes) {
+            isViewRecipes = false
+            false
+        } else {
+            true
+        }
     }
 
 }

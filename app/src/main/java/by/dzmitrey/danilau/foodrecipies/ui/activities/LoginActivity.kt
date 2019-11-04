@@ -110,6 +110,10 @@ class LoginActivity : BaseActivity(), GoogleApiClient.ConnectionCallbacks,
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        finish()
+    }
 
     override fun onConnectionSuspended(p0: Int) {
         googleApiClient.connect()

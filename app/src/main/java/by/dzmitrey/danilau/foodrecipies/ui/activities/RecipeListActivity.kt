@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.dzmitrey.danilau.foodrecipies.R
 import by.dzmitrey.danilau.foodrecipies.adapters.RecipeRecyclerAdapter
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
+import by.dzmitrey.danilau.foodrecipies.util.VerticalItemDecorator
 import by.dzmitrey.danilau.foodrecipies.viewmodels.RecipeListViewModel
 import by.dzmitrey.danilau.foodrecipies.viewmodels.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_recipe_list.*
@@ -42,6 +43,14 @@ class RecipeListActivity : BaseActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        if(recipeListViewModel.onBackPressed()){
+            super.onBackPressed()
+        }else{
+            displaySearchCategories()
+        }
+    }
+
     private fun subscribeObservers() {
         recipeListViewModel.getRecipesList().observe(this@RecipeListActivity,
             Observer<List<RecipeLocal>> {
@@ -58,6 +67,7 @@ class RecipeListActivity : BaseActivity() {
 
     private fun initRecyclerView() {
         recipeListAdapter = RecipeRecyclerAdapter(this@RecipeListActivity)
+        recyclerView.addItemDecoration(VerticalItemDecorator(30))
         recyclerView.adapter = recipeListAdapter
         recyclerView.layoutManager = LinearLayoutManager(this@RecipeListActivity)
     }
@@ -71,13 +81,10 @@ class RecipeListActivity : BaseActivity() {
                 }
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
             }
-
         })
-
     }
 
     private fun displaySearchCategories() {
