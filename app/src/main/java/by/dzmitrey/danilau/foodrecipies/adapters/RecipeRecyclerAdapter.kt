@@ -43,9 +43,7 @@ class RecipeRecyclerAdapter(private val listener: OnRecipeListener) :
                     .inflate(R.layout.layout_recipe_list_item, parent, false)
                 return RecipeViewHolder(view, listener)
             }
-
         }
-
     }
 
     override fun getItemCount() = recipes.size

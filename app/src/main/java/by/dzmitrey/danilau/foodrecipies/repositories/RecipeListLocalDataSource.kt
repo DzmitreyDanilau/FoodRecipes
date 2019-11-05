@@ -17,6 +17,6 @@ class RecipeListLocalDataSource @Inject constructor(private val recipeDao: Recip
     }
 
     override fun getRecipes(query: String): Flowable<List<RecipeLocal>> {
-        return recipeDao.getRecipes(query)
+        return recipeDao.getRecipes()
     }
 }

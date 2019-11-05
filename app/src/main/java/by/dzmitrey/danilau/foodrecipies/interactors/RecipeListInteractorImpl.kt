@@ -16,7 +16,6 @@ class RecipeListInteractorImpl @Inject constructor(
     private val localDataSource: IRecipeRepository.LocalDataSource
 ) : IInteractor.RecipeListInteractor {
     private var recipeResponseList: MutableList<RecipeLocal>? = mutableListOf()
-    private val compositeDisposable = CompositeDisposable()
 
     override fun fetchData(query: String, page: Int): Flowable<List<RecipeLocal>> {
         return object : NetworkBoundSource<List<RecipeLocal>, RecipeSearchResponse>() {
@@ -29,7 +28,7 @@ class RecipeListInteractorImpl @Inject constructor(
             }
 
             override fun loadfromDB(): Flowable<List<RecipeLocal>> {
-                return loadfromDB()
+                return fetchDataFromDB(query)
             }
 
             override fun saveCallResult(data: List<RecipeLocal>) {
@@ -42,23 +41,9 @@ class RecipeListInteractorImpl @Inject constructor(
                 }
             }
         }.getResult()
-//        val networkObservable = networkDataSource.searchRecipesByApi(query, page)
-//            .subscribeOn(Schedulers.io())
-//            .map {
-//                transformDataToAppModel(it)
-//            }
-//            .doOnSuccess {
-//                Timber.d("Thread inside fetchData: ${Thread.currentThread().name}")
-//                saveDataToDB(it)
-//            }
-//            .doOnError {
-//                handleError(it)
-//            }
-//            .flatMap(Function<List<BaseRecipe>, SingleSource<List<RecipeLocal>>> {
-//                Timber.d("Thread flatmap ${Thread.currentThread().name}")
-//                return@Function Single.just(recipeResponseList)
-//            })
-//        return Flowable.concat(fetchDataFromDB(query),networkObservable)
+            .doOnError {
+            handleError(it)
+        }
     }
 
     private fun handleError(error: Throwable?) {
