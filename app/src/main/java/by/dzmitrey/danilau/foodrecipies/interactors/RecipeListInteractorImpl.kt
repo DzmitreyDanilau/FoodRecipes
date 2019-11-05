@@ -46,12 +46,12 @@ class RecipeListInteractorImpl @Inject constructor(
         }
     }
 
-    private fun handleError(error: Throwable?) {
-        Timber.d("Error ${error?.message}")
+    override fun shouldFetch(): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun shouldFetch(): Boolean {
-        return false
+    private fun handleError(error: Throwable?) {
+        Timber.d("Error ${error?.message}")
     }
 
     override fun fetchDataFromDB(query: String): Flowable<List<RecipeLocal>> {

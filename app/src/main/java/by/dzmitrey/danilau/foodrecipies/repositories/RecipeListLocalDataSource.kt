@@ -4,6 +4,7 @@ import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
 import by.dzmitrey.danilau.foodrecipies.sources.local.RecipeDao
 import io.reactivex.Flowable
 import io.reactivex.Single
+import timber.log.Timber
 import javax.inject.Inject
 
 class RecipeListLocalDataSource @Inject constructor(private val recipeDao: RecipeDao) :
@@ -17,6 +18,9 @@ class RecipeListLocalDataSource @Inject constructor(private val recipeDao: Recip
     }
 
     override fun getRecipes(query: String): Flowable<List<RecipeLocal>> {
-        return recipeDao.getRecipes()
+        val result = recipeDao.getRecipes(query).doOnNext {
+            Timber.d("RecipeListLocalDataSource: $it")
+        }
+        return result
     }
 }
