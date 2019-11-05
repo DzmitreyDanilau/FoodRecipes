@@ -52,37 +52,10 @@ class RecipeRecyclerAdapter(private val listener: OnRecipeListener) :
         Timber.d("$recipes")
         val itemViewType = getItemViewType(position)
         if (itemViewType == RECIPE_TYPE) {
-            bindRecipeViewHolder(holder, position)
-        } else if(itemViewType == CATEGORY_TYPE) {
-            (holder as CategoryViewHolder).categoryTitle.text = recipes[position].title
-            val glideRequest = RequestOptions().placeholder(R.drawable.ic_launcher_background)
-            val picturePath = Uri.parse(
-                "android.resource://by.dzmitrey.danilau.foodrecipies/drawable/" +
-                        recipes[position].imageUrl
-            )
-            Glide.with(holder.categoryImage.context)
-                .setDefaultRequestOptions(glideRequest)
-                .load(picturePath)
-                .error(R.drawable.ic_login_error)
-                .into(holder.categoryImage)
+            (holder as RecipeViewHolder).bind(recipes[position])
+        } else if (itemViewType == CATEGORY_TYPE) {
+            (holder as CategoryViewHolder).bind(recipes[position])
         }
-    }
-
-    private fun bindRecipeViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int
-    ) {
-        (holder as RecipeViewHolder).title.text = recipes[position].title
-        holder.publisher.text = recipes[position].publisher
-        holder.socialScore.text = recipes[position].socialRank.toString()
-        val glideRequest = RequestOptions().placeholder(R.drawable.ic_launcher_background)
-        val imageUrl = recipes[position].imageUrl
-        Timber.d("$imageUrl")
-        Glide.with(holder.dishImage.context)
-            .setDefaultRequestOptions(glideRequest)
-            .load(recipes[position].imageUrl)
-            .error(R.drawable.ic_login_error)
-            .into(holder.dishImage)
     }
 
     override fun getItemViewType(position: Int): Int {
