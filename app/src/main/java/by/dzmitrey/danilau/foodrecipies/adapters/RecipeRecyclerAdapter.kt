@@ -1,6 +1,5 @@
 package by.dzmitrey.danilau.foodrecipies.adapters
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,8 +7,6 @@ import by.dzmitrey.danilau.foodrecipies.R
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
 import by.dzmitrey.danilau.foodrecipies.util.DEFAULT_SEARCH_CATEGORIES
 import by.dzmitrey.danilau.foodrecipies.util.DEFAULT_SEARCH_CATEGORY_IMAGES
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import timber.log.Timber
 
 
