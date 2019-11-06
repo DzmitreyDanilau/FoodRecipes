@@ -15,6 +15,7 @@ class RecipeListInteractorImpl @Inject constructor(
     private val networkDataSource: IRecipeRepository.NetworkDataSource,
     private val localDataSource: IRecipeRepository.LocalDataSource
 ) : IInteractor.RecipeListInteractor {
+
     private var recipeResponseList: MutableList<RecipeLocal>? = mutableListOf()
 
     override fun fetchData(query: String, page: Int): Flowable<List<RecipeLocal>> {

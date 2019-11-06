@@ -11,4 +11,13 @@
     <string name="hint_password">Password</string>
     <string name="sign_out">Sign out</string>
     <string name="search_view_hint">Beef steak…</string>
+
+
+    <string name="recipes_category_fragment">category_fragment</string>
+    <string name="recipes_list_fragment">recipes_list_fragment</string>
+    <string name="recipes_details_fragment">recipe_details_fragment</string>
+    <string name="intent_message">intent_message</string>
+    <string name="title_activity_main">MainActivity</string>
+
+
 </resources>

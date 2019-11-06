@@ -42,7 +42,7 @@ class RecipeCategoryFragment : BaseFragment(), OnRecipeListener {
         Timber.d("RecipeList viewModel: ${recipeListViewModel.hashCode()}")
         Timber.d("ProviderFactory Entity: $providerFactory")
         initRecyclerView()
-        initSearchView()
+//        initSearchView()
         subscribeObservers()
         if (!recipeListViewModel.isViewRecipes()) {
             displaySearchCategories()
@@ -70,20 +70,20 @@ class RecipeCategoryFragment : BaseFragment(), OnRecipeListener {
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
-    private fun initSearchView() {
-        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let {
-                    recipeListAdapter.displayLoading()
-                    recipeListViewModel.searchRecipes(it, 1)
-                }
-                return false
-            }
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        })
-    }
+//    private fun initSearchView() {
+//        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                query?.let {
+//                    recipeListAdapter.displayLoading()
+//                    recipeListViewModel.searchRecipes(it, 1)
+//                }
+//                return false
+//            }
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                return false
+//            }
+//        })
+//    }
 
     private fun displaySearchCategories() {
         recipeListViewModel.setIsViewRecipes(false)

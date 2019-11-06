@@ -1,7 +1,7 @@
 package by.dzmitrey.danilau.foodrecipies.di.modules
 
 import by.dzmitrey.danilau.foodrecipies.di.scopes.ActivityScope
-import by.dzmitrey.danilau.foodrecipies.ui.activities.RecipeListActivity
+import by.dzmitrey.danilau.foodrecipies.ui.activities.RecipeActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -12,7 +12,7 @@ abstract class ActivityBuilderModule {
         modules = [
         ]
     )
-    abstract fun contributeRecipeListActivity(): RecipeListActivity
+    abstract fun contributeRecipeListActivity(): RecipeActivity
 
 }
 
