@@ -3,7 +3,6 @@ package by.dzmitrey.danilau.foodrecipies.repositories
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
 import by.dzmitrey.danilau.foodrecipies.sources.local.RecipeDao
 import io.reactivex.Flowable
-import io.reactivex.Single
 import timber.log.Timber
 import javax.inject.Inject
 

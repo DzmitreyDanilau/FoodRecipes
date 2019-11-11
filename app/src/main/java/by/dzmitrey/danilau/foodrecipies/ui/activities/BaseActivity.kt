@@ -87,7 +87,7 @@ abstract class BaseActivity : DaggerAppCompatActivity(), OnRecipeListener, IReci
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         toolbarTitle.text = getString(R.string.recipes_category_fragment)
+        super.onBackPressed()
     }
 }

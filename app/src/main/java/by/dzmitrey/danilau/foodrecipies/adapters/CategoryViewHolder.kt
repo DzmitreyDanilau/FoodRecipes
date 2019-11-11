@@ -13,7 +13,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 class CategoryViewHolder(view: View, private val listener: OnRecipeListener) :
     RecyclerView.ViewHolder(view),
     View.OnClickListener {
-
     init {
         view.setOnClickListener(this)
     }
@@ -22,8 +21,8 @@ class CategoryViewHolder(view: View, private val listener: OnRecipeListener) :
     var categoryTitle: TextView = view.findViewById(R.id.category_title)
 
 
-    fun bind(recipe:RecipeLocal){
-       categoryTitle.text = recipe.title
+    fun bind(recipe: RecipeLocal) {
+        categoryTitle.text = recipe.title
         val glideRequest = RequestOptions().placeholder(R.drawable.ic_launcher_background)
         val picturePath = Uri.parse(
             "android.resource://by.dzmitrey.danilau.foodrecipies/drawable/" +

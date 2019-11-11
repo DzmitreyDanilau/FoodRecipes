@@ -18,6 +18,20 @@ class RecipeRecyclerAdapter(private val listener: OnRecipeListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var recipes = mutableListOf<RecipeLocal>()
 
+    override fun getItemViewType(position: Int): Int {
+        return (when {
+            recipes[position].title!! == "Loading" -> {
+                LOADING_TYPE
+            }
+            recipes[position].socialRank == -1 -> {
+                return CATEGORY_TYPE
+            }
+            else -> {
+                RECIPE_TYPE
+            }
+        })
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             RECIPE_TYPE -> {
@@ -55,19 +69,6 @@ class RecipeRecyclerAdapter(private val listener: OnRecipeListener) :
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return (when {
-            recipes[position].title!! == "Loading" -> {
-                LOADING_TYPE
-            }
-            recipes[position].socialRank == -1 -> {
-                return CATEGORY_TYPE
-            }
-            else -> {
-                RECIPE_TYPE
-            }
-        })
-    }
 
     fun displayLoading() {
         if (!isLoading()) {
