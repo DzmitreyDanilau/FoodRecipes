@@ -78,7 +78,7 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
     //LifeCycle
-    def lifecycle_version = "2.2.0-rc01"
+    def lifecycle_version = "2.2.0-rc02"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"

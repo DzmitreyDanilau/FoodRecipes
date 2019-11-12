@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import by.dzmitrey.danilau.foodrecipies.R
+import by.dzmitrey.danilau.foodrecipies.models.BaseRecipe
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
 import by.dzmitrey.danilau.foodrecipies.util.DEFAULT_SEARCH_CATEGORIES
 import by.dzmitrey.danilau.foodrecipies.util.DEFAULT_SEARCH_CATEGORY_IMAGES
@@ -16,12 +17,12 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 
 class RecipeCategoryRecyclerAdapter(private val listener: OnCategoryListener) :
-    RecyclerView.Adapter<RecipeCategoryRecyclerAdapter.CategoryViewHolder>() {
+    RecyclerView.Adapter<RecipeCategoryRecyclerAdapter.CategoryViewHolder>(),IRecyclerViewAdapter {
 
     private var categories = mutableListOf<RecipeLocal>()
 
     init {
-        displaySearchCategories()
+        setCategoriesItem()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CategoryViewHolder(
@@ -39,7 +40,11 @@ class RecipeCategoryRecyclerAdapter(private val listener: OnCategoryListener) :
         holder.bind(categories[position])
     }
 
-    private fun displaySearchCategories() {
+    override fun setItems(items: List<BaseRecipe>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private fun setCategoriesItem() {
         val categoryList = mutableListOf<RecipeLocal>()
         for (categories in DEFAULT_SEARCH_CATEGORIES.indices) {
             val recipe = RecipeLocal(

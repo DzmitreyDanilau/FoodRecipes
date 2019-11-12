@@ -7,13 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import by.dzmitrey.danilau.foodrecipies.R
+import by.dzmitrey.danilau.foodrecipies.models.BaseRecipe
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import timber.log.Timber
 
 class RecipeListRecyclerViewAdapter(private val listener: OnRecipeListener) :
-    RecyclerView.Adapter<RecipeListRecyclerViewAdapter.RecipeViewHolder>() {
+    RecyclerView.Adapter<RecipeListRecyclerViewAdapter.RecipeViewHolder>(), IRecyclerViewAdapter {
 
     private var recipes = mutableListOf<RecipeLocal>()
 
@@ -30,10 +31,17 @@ class RecipeListRecyclerViewAdapter(private val listener: OnRecipeListener) :
         holder.bind(recipes[position])
     }
 
+    override fun setItems(items: List<BaseRecipe>) {
+        recipes = items as MutableList<RecipeLocal>
+        notifyDataSetChanged()
+    }
+
     inner class RecipeViewHolder(view: View, private var onRecipeListener: OnRecipeListener) :
         RecyclerView.ViewHolder(view), View.OnClickListener {
 
-        init {view.setOnClickListener(this)}
+        init {
+            view.setOnClickListener(this)
+        }
 
         var title: TextView = view.findViewById(R.id.recipe_title)
         var publisher: TextView = view.findViewById(R.id.recipe_publisher)

@@ -37,7 +37,7 @@ interface AdapterDelegate<T> {
     fun onBindViewHolder(items: T, position: Int, holder: RecyclerView.ViewHolder)
 
     /**
-     * Called when a view created by this adapter has been recycled.
+     * Called when a view created by this recipeListAdapter has been recycled.
      *
      * A view is recycled when a {@link RecyclerView.LayoutManager} decides that it no longer
      * needs to be attached to its parent {@link RecyclerView}. This can be because it has
@@ -50,7 +50,7 @@ interface AdapterDelegate<T> {
      * sending it to RecycledViewPool. This way, if ViewHolder was holding valid information
      * before being recycled, you can call {@link RecyclerView.ViewHolder#getAdapterPosition()} to
      * get
-     * its adapter position.
+     * its recipeListAdapter position.
      *
      * @param holder The ViewHolder for the view being recycled
      */
