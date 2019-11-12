@@ -12,9 +12,8 @@ import javax.inject.Inject
 
 class RecipeListViewModel @Inject constructor(
     private val recipeListInteractor: IInteractor.RecipeListInteractor
-) :
-    ViewModel() {
-    private var isViewRecipes: Boolean = false
+) : ViewModel() {
+
     private val recipesList: MutableLiveData<List<RecipeLocal>> = MutableLiveData()
     private val recipesListError: MutableLiveData<String> = MutableLiveData()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -41,15 +40,5 @@ class RecipeListViewModel @Inject constructor(
 
     fun getRecipesList(): LiveData<List<RecipeLocal>> = recipesList
     fun getRecipesListError(): LiveData<String> = recipesListError
-    fun onBackPressed(): Boolean {
-        return if (isViewRecipes) {
-            isViewRecipes = false
-            false
-        } else {
-            true
-        }
-    }
 
 }
-
-//TODO change type of recipesList to RecipeLocal

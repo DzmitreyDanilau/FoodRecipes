@@ -8,6 +8,7 @@ import by.dzmitrey.danilau.foodrecipies.adapters.OnCategoryListener
 import by.dzmitrey.danilau.foodrecipies.adapters.OnRecipeListener
 import by.dzmitrey.danilau.foodrecipies.ui.fragments.BaseFragment
 import by.dzmitrey.danilau.foodrecipies.ui.fragments.RecipeCategoryFragment
+import by.dzmitrey.danilau.foodrecipies.ui.fragments.RecipeDetailsFragment
 import by.dzmitrey.danilau.foodrecipies.ui.fragments.RecipesListFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_base.*
@@ -53,6 +54,15 @@ abstract class BaseActivity : DaggerAppCompatActivity(), OnRecipeListener, OnCat
                 doFragmentTransaction(
                     recipesListFragment,
                     getString(R.string.recipes_list_fragment),
+                    true,
+                    param
+                )
+            }
+            getString(R.string.recipes_details_fragment) -> {
+                val recipeDetailsFragment = RecipeDetailsFragment.newInstance()
+                doFragmentTransaction(
+                    recipeDetailsFragment,
+                    getString(R.string.recipes_details_fragment),
                     true,
                     param
                 )

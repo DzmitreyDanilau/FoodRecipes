@@ -63,10 +63,5 @@ class RecipesListFragment : BaseFragment() {
     companion object {
         @JvmStatic
         fun newInstance() = RecipesListFragment()
-//            .apply {
-//            arguments = Bundle().apply {
-//                putString(ARG_PARAM1, category)
-//            }
-//        }
     }
 }
