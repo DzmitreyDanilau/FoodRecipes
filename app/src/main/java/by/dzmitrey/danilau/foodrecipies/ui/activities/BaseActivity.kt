@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import by.dzmitrey.danilau.foodrecipies.R
+import by.dzmitrey.danilau.foodrecipies.adapters.OnCategoryListener
 import by.dzmitrey.danilau.foodrecipies.adapters.OnRecipeListener
 import by.dzmitrey.danilau.foodrecipies.ui.fragments.BaseFragment
 import by.dzmitrey.danilau.foodrecipies.ui.fragments.RecipeCategoryFragment
@@ -12,7 +13,8 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_base.view.*
 
-abstract class BaseActivity : DaggerAppCompatActivity(), OnRecipeListener, IRecipeActivity {
+abstract class BaseActivity : DaggerAppCompatActivity(), OnRecipeListener, OnCategoryListener,
+    IRecipeActivity {
     lateinit var toolbar: Toolbar
     lateinit var toolbarTitle: TextView
     override fun setContentView(layoutResID: Int) {
@@ -27,7 +29,7 @@ abstract class BaseActivity : DaggerAppCompatActivity(), OnRecipeListener, IReci
     }
 
     override fun onCategoryClick(category: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        inflateFragment(getString(R.string.recipes_list_fragment), category)
     }
 
     override fun setToolBarTitle(fragmentTag: String) {
@@ -52,18 +54,16 @@ abstract class BaseActivity : DaggerAppCompatActivity(), OnRecipeListener, IReci
                     recipesListFragment,
                     getString(R.string.recipes_list_fragment),
                     true,
-                    null
+                    param
                 )
             }
         }
     }
-    fun init(){
+
+    fun init() {
         val recipeCategoryFragment = RecipeCategoryFragment.newInstance()
         doFragmentTransaction(
-            recipeCategoryFragment,
-           getString(R.string.recipes_category_fragment),
-            false,
-            null
+            recipeCategoryFragment, getString(R.string.recipes_category_fragment), false, null
         )
     }
 

@@ -5,11 +5,17 @@ import by.dzmitrey.danilau.foodrecipies.di.recipelist.RecipeListNetworkModule
 import by.dzmitrey.danilau.foodrecipies.di.recipelist.RecipeListRepositoriesModule
 import by.dzmitrey.danilau.foodrecipies.di.scopes.FragmentScope
 import by.dzmitrey.danilau.foodrecipies.ui.fragments.RecipeCategoryFragment
+import by.dzmitrey.danilau.foodrecipies.ui.fragments.RecipesListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class FragmentBuilderModule {
+
+    @FragmentScope
+    @ContributesAndroidInjector
+    abstract fun contributeRecipeCategoryFragment(): RecipeCategoryFragment
+
     @FragmentScope
     @ContributesAndroidInjector(
         modules = [
@@ -19,5 +25,5 @@ abstract class FragmentBuilderModule {
             RecipeListInteractorsModule::class
         ]
     )
-    abstract fun contributeRecipeCategoryFragment(): RecipeCategoryFragment
+    abstract fun contributeRecipeListFragment(): RecipesListFragment
 }

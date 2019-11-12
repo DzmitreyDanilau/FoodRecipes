@@ -20,7 +20,6 @@ class RecipeListViewModel @Inject constructor(
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun searchRecipes(query: String, page: Int) {
-        isViewRecipes = true
         compositeDisposable.add(
             recipeListInteractor.fetchData(query, page)
                 .subscribeOn(Schedulers.newThread())
@@ -42,12 +41,6 @@ class RecipeListViewModel @Inject constructor(
 
     fun getRecipesList(): LiveData<List<RecipeLocal>> = recipesList
     fun getRecipesListError(): LiveData<String> = recipesListError
-    fun isViewRecipes() = isViewRecipes
-
-    fun setIsViewRecipes(isViewRecipes: Boolean) {
-        this.isViewRecipes = isViewRecipes
-    }
-
     fun onBackPressed(): Boolean {
         return if (isViewRecipes) {
             isViewRecipes = false
