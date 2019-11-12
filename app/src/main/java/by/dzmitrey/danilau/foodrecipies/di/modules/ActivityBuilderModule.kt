@@ -8,10 +8,7 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class ActivityBuilderModule {
     @ActivityScope
-    @ContributesAndroidInjector(
-        modules = [
-        ]
-    )
+    @ContributesAndroidInjector
     abstract fun contributeRecipeListActivity(): RecipeActivity
 
 }

@@ -16,15 +16,6 @@ abstract class BaseFragment : DaggerFragment(), OnCategoryListener, OnRecipeList
     lateinit var recyclerView: RecyclerView
     lateinit var recipeListAdapter: IRecyclerViewAdapter
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_base, container, false)
-    }
-
-
     override fun onCategoryClick(category: String) {
         val listener = activity
         if (listener is OnCategoryListener) {
