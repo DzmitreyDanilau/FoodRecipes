@@ -13,6 +13,7 @@ import javax.inject.Inject
 class RecipeListViewModel @Inject constructor(
     private val recipeListInteractor: IInteractor.RecipeListInteractor
 ) : ViewModel() {
+
     private val progress = MutableLiveData<Boolean>()
     private val recipesList: MutableLiveData<List<RecipeLocal>> = MutableLiveData()
     private val recipesListError: MutableLiveData<String> = MutableLiveData()
@@ -30,10 +31,8 @@ class RecipeListViewModel @Inject constructor(
                 .observeOn(Schedulers.io())
                 .subscribe(
                     {
-                        progress.postValue(true)
                         Timber.d("In Subscribe: ${Thread.currentThread().name}")
                         recipesList.postValue(it)
-                        progress.postValue(false)
                     },
                     {
                         Timber.d("${it.message}")
