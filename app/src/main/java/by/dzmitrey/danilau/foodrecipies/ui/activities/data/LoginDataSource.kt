@@ -17,11 +17,11 @@ class LoginDataSource {
         return try {
             // TODO: handle loggedInUser authentication
             val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
-            val googleSigninOptions =
-                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestEmail()
-                    .build()
-            val googleSignInClient = GoogleSignIn.getClient(context, googleSigninOptions)
+//            val googleSigninOptions =
+//                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                    .requestEmail()
+//                    .build()
+//            val googleSignInClient = GoogleSignIn.getClient(context, googleSigninOptions)
             Result.Success(fakeUser)
         } catch (e: Throwable) {
             Result.Error(IOException("Error logging in", e))

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import by.dzmitrey.danilau.foodrecipies.R
 import by.dzmitrey.danilau.foodrecipies.models.BaseRecipe
+import by.dzmitrey.danilau.foodrecipies.models.app.CategoriesLocal
 import by.dzmitrey.danilau.foodrecipies.models.app.RecipeLocal
 import by.dzmitrey.danilau.foodrecipies.util.DEFAULT_SEARCH_CATEGORIES
 import by.dzmitrey.danilau.foodrecipies.util.DEFAULT_SEARCH_CATEGORY_IMAGES
@@ -19,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 class RecipeCategoryRecyclerAdapter(private val listener: OnCategoryListener) :
     RecyclerView.Adapter<RecipeCategoryRecyclerAdapter.CategoryViewHolder>(),IRecyclerViewAdapter {
 
-    private var categories = mutableListOf<RecipeLocal>()
+    private var categories = mutableListOf<CategoriesLocal>()
 
     init {
         setCategoriesItem()
@@ -45,17 +46,13 @@ class RecipeCategoryRecyclerAdapter(private val listener: OnCategoryListener) :
     }
 
     private fun setCategoriesItem() {
-        val categoryList = mutableListOf<RecipeLocal>()
+        val categoryList = mutableListOf<CategoriesLocal>()
         for (categories in DEFAULT_SEARCH_CATEGORIES.indices) {
-            val recipe = RecipeLocal(
-                0,
-                "",
+            val categoriesLocal = CategoriesLocal(
                 DEFAULT_SEARCH_CATEGORIES[categories],
-                "",
-                DEFAULT_SEARCH_CATEGORY_IMAGES[categories],
-                -1
+                DEFAULT_SEARCH_CATEGORY_IMAGES[categories]
             )
-            categoryList.add(recipe)
+            categoryList.add(categoriesLocal)
         }
         categories.addAll(categoryList)
     }
@@ -70,12 +67,12 @@ class RecipeCategoryRecyclerAdapter(private val listener: OnCategoryListener) :
         var categoryImage: CircleImageView = view.findViewById(R.id.category_image)
         var categoryTitle: TextView = view.findViewById(R.id.category_title)
 
-        fun bind(recipe: RecipeLocal) {
-            categoryTitle.text = recipe.title
+        fun bind(category: CategoriesLocal) {
+            categoryTitle.text = category.categoryTitle
             val glideRequest = RequestOptions().placeholder(R.drawable.ic_launcher_background)
             val picturePath = Uri.parse(
                 "android.resource://by.dzmitrey.danilau.foodrecipies/drawable/" +
-                        recipe.imageUrl
+                        category.categoryImage
             )
             Glide.with(categoryImage.context)
                 .setDefaultRequestOptions(glideRequest)

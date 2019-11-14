@@ -1,6 +1,7 @@
 package by.dzmitrey.danilau.foodrecipies.ui.activities.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import by.dzmitrey.danilau.foodrecipies.R
+import by.dzmitrey.danilau.foodrecipies.ui.activities.RecipeActivity
 
 
 class LoginActivity : AppCompatActivity() {
@@ -46,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
             if (loginState.passwordError != null) {
                 password.error = getString(loginState.passwordError)
             }
-       })
+        })
 
         loginViewModel.loginResult.observe(this@LoginActivity, Observer {
             val loginResult = it ?: return@Observer
@@ -59,8 +61,7 @@ class LoginActivity : AppCompatActivity() {
                 updateUiWithUser(loginResult.success)
             }
             setResult(Activity.RESULT_OK)
-
-            //Complete and destroy login activity once successful
+            startActivity(Intent(this, RecipeActivity::class.java))
             finish()
         })
 
