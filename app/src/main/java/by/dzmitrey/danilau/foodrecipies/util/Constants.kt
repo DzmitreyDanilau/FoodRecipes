@@ -29,18 +29,10 @@ val DEFAULT_SEARCH_CATEGORIES = arrayOf(
 //    "Mediterranean"
 )
 
-val subCategories = mutableMapOf(
-    Pair("African","African"),
-    Pair("American","American"),
-    Pair("American","Latin American"),
-    Pair("American","Mexican American"),
-    Pair("European","British"),
-    Pair("European","French"),
-    Pair("European","German"),
-    Pair("European","Greek"),
-    Pair("European","Irish"),
-    Pair("European","Italian"),
-    Pair("European","Spanish")
+val DEFAULT_SUB_CATEGORIES = mapOf(
+    Pair("African",listOf("African")),
+    Pair("American",listOf("american","mexican","american")),
+    Pair("European",listOf("european","british","french","german","irish","italian","spanish"))
     )
 
 val DEFAULT_SEARCH_CATEGORY_IMAGES = arrayOf(

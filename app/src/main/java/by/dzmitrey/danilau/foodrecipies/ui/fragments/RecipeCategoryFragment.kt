@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import by.dzmitrey.danilau.foodrecipies.R
+import by.dzmitrey.danilau.foodrecipies.adapters.OnCategoryListener
 import by.dzmitrey.danilau.foodrecipies.adapters.RecipeCategoryRecyclerAdapter
+import by.dzmitrey.danilau.foodrecipies.util.DEFAULT_SUB_CATEGORIES
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_recipe_category.*
 
 class RecipeCategoryFragment : BaseFragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,6 +26,12 @@ class RecipeCategoryFragment : BaseFragment() {
         initRecyclerView(RecipeCategoryRecyclerAdapter(this@RecipeCategoryFragment))
     }
 
+    override fun onCategoryClick(category: String) {
+        val listener = activity
+        if (listener is OnCategoryListener) {
+            listener.onCategoryClick(category)
+        }
+    }
 
     companion object {
         @JvmStatic

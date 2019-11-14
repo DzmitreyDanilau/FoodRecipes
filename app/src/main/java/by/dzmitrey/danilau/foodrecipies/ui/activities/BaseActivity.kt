@@ -6,10 +6,7 @@ import androidx.appcompat.widget.Toolbar
 import by.dzmitrey.danilau.foodrecipies.R
 import by.dzmitrey.danilau.foodrecipies.adapters.OnCategoryListener
 import by.dzmitrey.danilau.foodrecipies.adapters.OnRecipeListener
-import by.dzmitrey.danilau.foodrecipies.ui.fragments.BaseFragment
-import by.dzmitrey.danilau.foodrecipies.ui.fragments.RecipeCategoryFragment
-import by.dzmitrey.danilau.foodrecipies.ui.fragments.RecipeDetailsFragment
-import by.dzmitrey.danilau.foodrecipies.ui.fragments.RecipesListFragment
+import by.dzmitrey.danilau.foodrecipies.ui.fragments.*
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_base.view.*
@@ -25,18 +22,21 @@ abstract class BaseActivity : DaggerAppCompatActivity(), OnRecipeListener, OnCat
         super.setContentView(layoutResID)
     }
 
-    override fun onRecipeClick(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onCategoryClick(category: String) {
+        inflateFragment(getString(R.string.recipes_subcategory_fragment), category)
     }
 
-    override fun onCategoryClick(category: String) {
-        inflateFragment(getString(R.string.recipes_list_fragment), category)
+    override fun onSubCategoryClick(subCategory: String) {
+        inflateFragment(getString(R.string.recipes_list_fragment), subCategory)
+    }
+
+    override fun onRecipeClick(position: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun setToolBarTitle(fragmentTag: String) {
         toolbarTitle.text = fragmentTag
     }
-
 
     override fun inflateFragment(fragmentTag: String, param: String) {
         when (fragmentTag) {
@@ -49,6 +49,17 @@ abstract class BaseActivity : DaggerAppCompatActivity(), OnRecipeListener, OnCat
                     null
                 )
             }
+
+            getString(R.string.recipes_subcategory_fragment) -> {
+                val recipeSubCategoryFragment = RecipeSubCategoryFragment.newInstance()
+                doFragmentTransaction(
+                    recipeSubCategoryFragment,
+                    getString(R.string.recipes_subcategory_fragment),
+                    true,
+                    param
+                )
+            }
+
             getString(R.string.recipes_list_fragment) -> {
                 val recipesListFragment = RecipesListFragment.newInstance()
                 doFragmentTransaction(
@@ -58,6 +69,7 @@ abstract class BaseActivity : DaggerAppCompatActivity(), OnRecipeListener, OnCat
                     param
                 )
             }
+
             getString(R.string.recipes_details_fragment) -> {
                 val recipeDetailsFragment = RecipeDetailsFragment.newInstance()
                 doFragmentTransaction(

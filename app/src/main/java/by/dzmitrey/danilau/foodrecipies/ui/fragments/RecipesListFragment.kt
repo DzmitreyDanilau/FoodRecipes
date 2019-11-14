@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import by.dzmitrey.danilau.foodrecipies.R
-import by.dzmitrey.danilau.foodrecipies.adapters.RecipeListRecyclerViewAdapter
+import by.dzmitrey.danilau.foodrecipies.adapters.RecipeListRecyclerAdapter
 import by.dzmitrey.danilau.foodrecipies.viewmodels.RecipeListViewModel
 import by.dzmitrey.danilau.foodrecipies.viewmodels.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.fragment_recipe_category.recycler_view_recipe_list
@@ -46,9 +46,8 @@ class RecipesListFragment : BaseProgressFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBar = progress_bar
-
         recyclerView = recycler_view_recipe_list
-        initRecyclerView(RecipeListRecyclerViewAdapter(this))
+        initRecyclerView(RecipeListRecyclerAdapter(this))
         showProgress()
         subscribeObserver()
     }
