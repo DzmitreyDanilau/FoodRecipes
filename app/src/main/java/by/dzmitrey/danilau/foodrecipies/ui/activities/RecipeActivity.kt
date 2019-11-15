@@ -8,10 +8,12 @@ class RecipeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if(savedInstanceState == null){
+            init()
+        }
         setContentView(R.layout.activity_base)
         toolbar = findViewById(R.id.tool_bar)
         setSupportActionBar(toolbar)
         toolbarTitle = tool_bar_title
-        init()
     }
 }
