@@ -9,7 +9,7 @@ import by.dzmitrey.danilau.foodrecipies.util.VerticalItemDecorator
 import dagger.android.support.DaggerFragment
 import timber.log.Timber
 
-abstract class BaseFragment : DaggerFragment(), OnRecipeListener, OnCategoryListener {
+abstract class BaseFragment : DaggerFragment(), OnRecipeListener, OnCategoriesListener.OnCategoryListener, OnCategoriesListener.OnSubCategoryListener {
     protected var param1: String? = null
     lateinit var category: String
     lateinit var recyclerView: RecyclerView
@@ -61,15 +61,15 @@ abstract class BaseFragment : DaggerFragment(), OnRecipeListener, OnCategoryList
 
     }
 
-    override fun onRecipeClick(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onCategoryClick(category: String) {
+        
     }
 
     override fun onSubCategoryClick(subCategory: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onCategoryClick(category: String) {
+    override fun onRecipeClick(position: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

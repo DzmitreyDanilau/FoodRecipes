@@ -4,15 +4,17 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import by.dzmitrey.danilau.foodrecipies.R
-import by.dzmitrey.danilau.foodrecipies.adapters.OnCategoryListener
+import by.dzmitrey.danilau.foodrecipies.adapters.OnCategoriesListener
 import by.dzmitrey.danilau.foodrecipies.adapters.OnRecipeListener
 import by.dzmitrey.danilau.foodrecipies.ui.fragments.*
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_base.view.*
 
-abstract class BaseActivity : DaggerAppCompatActivity(), OnRecipeListener, OnCategoryListener,
-    IRecipeActivity {
+abstract class BaseActivity : DaggerAppCompatActivity(),
+    OnRecipeListener,
+    OnCategoriesListener.OnSubCategoryListener,
+    IRecipeActivity,
+    OnCategoriesListener.OnCategoryListener {
     lateinit var toolbar: Toolbar
     lateinit var toolbarTitle: TextView
     override fun setContentView(layoutResID: Int) {

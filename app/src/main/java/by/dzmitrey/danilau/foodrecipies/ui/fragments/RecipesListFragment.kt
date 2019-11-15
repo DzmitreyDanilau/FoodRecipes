@@ -18,7 +18,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 
-class RecipesListFragment : BaseProgressFragment() {
+class RecipesListFragment : BaseFragment() {
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
     lateinit var recipeListViewModel: RecipeListViewModel
