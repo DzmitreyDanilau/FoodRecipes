@@ -1,102 +1,95 @@
 package by.dzmitrey.danilau.foodrecipies.ui.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import by.dzmitrey.danilau.foodrecipies.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import by.dzmitrey.danilau.foodrecipies.adapters.*
+import by.dzmitrey.danilau.foodrecipies.util.VerticalItemDecorator
 import dagger.android.support.DaggerFragment
+import timber.log.Timber
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [BaseFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [BaseFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class BaseFragment : DaggerFragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_base, container, false)
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
+abstract class BaseFragment : DaggerFragment(), OnRecipeListener, OnCategoriesListener.OnCategoryListener, OnCategoriesListener.OnSubCategoryListener {
+    protected var param1: String? = null
+    lateinit var category: String
+    lateinit var recyclerView: RecyclerView
+    lateinit var recipeAdapter: IRecyclerViewAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
+        Timber.d("fragment: onAttach")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.d("fragment: onCreate")
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Timber.d("fragment: onActivityCreated")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.d("fragment: onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.d("fragment: onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.d("fragment: onStop")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Timber.d("fragment: onDestroyView")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.d("fragment: onDestroy")
     }
 
     override fun onDetach() {
         super.onDetach()
-        listener = null
+        Timber.d("fragment: onDetach")
+
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+    override fun onCategoryClick(category: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BaseFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BaseFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onSubCategoryClick(subCategory: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onRecipeClick(position: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    protected fun initRecyclerView(adapter: IRecyclerViewAdapter) {
+        when (adapter) {
+            is RecipeCategoryRecyclerAdapter -> {
+                recipeAdapter = adapter
+                recyclerView.adapter = recipeAdapter as RecipeCategoryRecyclerAdapter
             }
+            is RecipeSubCategoryRecyclerAdapter -> {
+                recipeAdapter = adapter
+                recyclerView.adapter = recipeAdapter as RecipeSubCategoryRecyclerAdapter
+            }
+            is RecipeListRecyclerAdapter -> {
+                recipeAdapter = adapter
+                recyclerView.adapter = recipeAdapter as RecipeListRecyclerAdapter
+            }
+
+        }
+        recyclerView.addItemDecoration(VerticalItemDecorator(30))
+        recyclerView.layoutManager = LinearLayoutManager(context)
     }
 }

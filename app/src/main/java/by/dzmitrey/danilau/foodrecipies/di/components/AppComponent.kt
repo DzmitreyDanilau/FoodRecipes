@@ -14,8 +14,9 @@ import dagger.android.support.AndroidSupportInjectionModule
     modules = [
         AndroidSupportInjectionModule::class,
         AppModule::class,
-        ActivityBuilderModule::class,
         NetworkModule::class,
+        ActivityBuilderModule::class,
+        FragmentBuilderModule::class,
         RecipeViewModelModule::class,
         RoomModule::class
     ]

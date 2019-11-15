@@ -11,4 +11,26 @@
     <string name="hint_password">Password</string>
     <string name="sign_out">Sign out</string>
     <string name="search_view_hint">Beef steak…</string>
+
+
+    <string name="chose_kitchen">Chose kitchen</string>
+
+
+    <string name="recipes_category_fragment">category_fragment</string>
+    <string name="recipes_list_fragment">recipes_list_fragment</string>
+    <string name="recipes_details_fragment">recipe_details_fragment</string>
+    <string name="recipes_subcategory_fragment">recipe_subcategory_fragment</string>
+    <string name="intent_message">intent_message</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="login_activity_name">Login</string>
+
+
 </resources>

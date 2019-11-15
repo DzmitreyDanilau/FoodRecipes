@@ -12,15 +12,16 @@ import javax.inject.Inject
 
 class RecipeListViewModel @Inject constructor(
     private val recipeListInteractor: IInteractor.RecipeListInteractor
-) :
-    ViewModel() {
-    private var isViewRecipes: Boolean = false
+) : ViewModel() {
+
+    private val progress = MutableLiveData<Boolean>()
     private val recipesList: MutableLiveData<List<RecipeLocal>> = MutableLiveData()
     private val recipesListError: MutableLiveData<String> = MutableLiveData()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
+    fun getProgressState() = progress
+
     fun searchRecipes(query: String, page: Int) {
-        isViewRecipes = true
         compositeDisposable.add(
             recipeListInteractor.fetchData(query, page)
                 .subscribeOn(Schedulers.newThread())
@@ -42,21 +43,5 @@ class RecipeListViewModel @Inject constructor(
 
     fun getRecipesList(): LiveData<List<RecipeLocal>> = recipesList
     fun getRecipesListError(): LiveData<String> = recipesListError
-    fun isViewRecipes() = isViewRecipes
-
-    fun setIsViewRecipes(isViewRecipes: Boolean) {
-        this.isViewRecipes = isViewRecipes
-    }
-
-    fun onBackPressed(): Boolean {
-        return if (isViewRecipes) {
-            isViewRecipes = false
-            false
-        } else {
-            true
-        }
-    }
 
 }
-
-//TODO change type of recipesList to RecipeLocal

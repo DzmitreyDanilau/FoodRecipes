@@ -11,7 +11,7 @@ import retrofit2.http.Query
 interface RecipeApi {
     @GET("api/search")
     fun searchRecipes(
-        @Query("key") key: String = by.dzmitrey.danilau.foodrecipies.util.API_KEY2,
+        @Query("key") key: String = by.dzmitrey.danilau.foodrecipies.util.API_KEY,
         @Query("q") query: String,
         @Query("page") page: Int
     ): Single<RecipeSearchResponse>

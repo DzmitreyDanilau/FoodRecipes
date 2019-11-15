@@ -9,7 +9,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import by.dzmitrey.danilau.foodrecipies.R
-import by.dzmitrey.danilau.foodrecipies.ui.activities.RecipeListActivity
+import by.dzmitrey.danilau.foodrecipies.ui.activities.RecipeActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -27,7 +27,7 @@ class FirebaseNotificationService : FirebaseMessagingService() {
     }
 
     private fun sendNotification(notifcationTitle: String, notificationContent: String) {
-        val intent = Intent(this, RecipeListActivity::class.java).apply {
+        val intent = Intent(this, RecipeActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent: PendingIntent = PendingIntent
