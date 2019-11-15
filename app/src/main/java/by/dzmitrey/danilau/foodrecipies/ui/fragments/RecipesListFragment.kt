@@ -57,7 +57,7 @@ class RecipesListFragment : BaseProgressFragment() {
         recipeListViewModel.getRecipesList().observe(viewLifecycleOwner,
             Observer {
                 it?.also {
-                    recipeListAdapter.setItems(it)
+                    recipeAdapter.setItems(it)
 
                 }
                 recipeListViewModel.getRecipesListError().observe(viewLifecycleOwner,

@@ -10,15 +10,15 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import de.hdodenhof.circleimageview.CircleImageView
 
- class CategoryViewHolder(view: View, private val listener: OnCategoryListener) :
+class CategoryViewHolder(view: View, private val listener: OnCategoryListener) :
     RecyclerView.ViewHolder(view), View.OnClickListener {
 
     init {
         view.setOnClickListener(this)
     }
 
-    var categoryImage: CircleImageView = view.findViewById(R.id.category_image)
-    var categoryTitle: TextView = view.findViewById(R.id.category_title)
+    private var categoryImage: CircleImageView = view.findViewById(R.id.category_image)
+    private var categoryTitle: TextView = view.findViewById(R.id.category_title)
 
     fun bind(category: CategoriesLocal) {
         categoryTitle.text = category.categoryTitle

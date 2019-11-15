@@ -30,8 +30,8 @@ val DEFAULT_SEARCH_CATEGORIES = arrayOf(
 )
 
 val DEFAULT_SUB_CATEGORIES = mapOf(
-    Pair("African",listOf("African")),
-    Pair("American",listOf("american","mexican","american")),
+    Pair("African",listOf("african")),
+    Pair("American",listOf("american","mexican")),
     Pair("European",listOf("european","british","french","german","irish","italian","spanish"))
     )
 
