@@ -62,7 +62,7 @@ abstract class BaseFragment : DaggerFragment(), OnRecipeListener, OnCategoriesLi
     }
 
     override fun onCategoryClick(category: String) {
-        
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onSubCategoryClick(subCategory: String) {

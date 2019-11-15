@@ -25,10 +25,9 @@ class RecipeCategoryFragment : BaseFragment(), OnCategoriesListener.OnCategoryLi
     }
 
     override fun onCategoryClick(category: String) {
-        this.category = category
         val listener = activity
-        if (listener is OnCategoriesListener) {
-            listener
+        if (listener is OnCategoriesListener.OnCategoryListener) {
+            listener.onCategoryClick(category)
         }
     }
 
